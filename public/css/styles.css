@@ -1,0 +1,31 @@
+
+#navbar {
+  background: rgba(255, 255, 255, 0);
+}
+
+#navbar.hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.uniform-text, 
+.uniform-text b {
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 0%;
+  height: 1px;
+  background-color: white;
+  transition: width 0.5s ease-in-out;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
