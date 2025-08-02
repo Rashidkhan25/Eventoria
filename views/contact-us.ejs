@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<>
+  <head>
   <meta charset="UTF-8">
   <title>Contact Us | EventSync</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,26 +28,46 @@
     .animate-fade-in {
       animation: fadeInUp 1s ease-out;
     }
+    .custom-underline {
+  position: relative;
+  display: inline-block; /* ensures underline fits text width */
+}
+
+.custom-underline::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;                /* adjust length */
+  height: 3px;               /* thickness */
+  background: linear-gradient(90deg, #7f00ff, #e100ff); /* gradient underline */
+  border-radius: 2px;
+}
+
   </style>
 </head>
 
-<body class="min-h-screen bg-cover bg-center bg-fixed relative text-white"
-      style="background-image: url('/images/contactUsbg.jpg');">
+<body>
        <%- include("partials/navbar") %>
-        <!-- Waves -->
-  <div id="waveTopLeft" class="wave top-left"></div>
-  <div id="waveBottomRight" class="wave bottom-right"></div>
 
-  <!-- Overlay -->
-  <div class="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm z-0"></div>
+<div class="min-h-screen bg-cover bg-center bg-fixed relative text-white">
+
+   <video autoplay muted loop playsinline 
+    class="absolute inset-0 w-full h-full object-cover z-0">
+    <source src="/videos/hero2.mp4" type="video/mp4">
+  </video>
+
+  <!-- Overlay
+  <div class="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm z-0"></div> -->
 
   <!-- Main Content -->
   <div class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-32">
 
     <!-- Title -->
-    <h1 class="text-5xl md:text-7xl font-zentry special-font text-center mb-6 border-b-2 border-white inline-block pb-2">
-      C<b>o</b>nt<b>a</b>ct Us
-    </h1>
+    <h1 class="custom-underline text-5xl md:text-7xl font-zentry special-font text-center mb-4 pb-2">
+  C<b>o</b>nt<b>a</b>ct Us
+</h1>
 <!-- Contact Box -->
 <div class="animate-fade-in w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-0 bg-black bg-opacity-10 rounded-2xl shadow-2xl overflow-hidden mt-6 backdrop-blur-lg transition hover:scale-[1.01] duration-300">
 
@@ -92,7 +112,20 @@
       class="w-full bg-white/20 placeholder-white text-white px-4 py-3 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-400 transition"></textarea>
     <button type="submit"
       class="w-full bg-white text-black font-semibold py-3 rounded-[3rem] shadow-md transition">
-      Send Message
+      <span
+            class="relative inline-flex overflow-hidden font-general text-sm uppercase group"
+          >
+            <span
+              class="translate-y-0 skew-y-0 transition duration-500 group-hover:-translate-y-[160%] group-hover:skew-y-12"
+            >
+              Send Message
+            </span>
+            <span
+              class="absolute translate-y-[164%] skew-y-12 transition duration-500 group-hover:translate-y-0 group-hover:skew-y-0"
+            >
+              Send Message
+            </span>
+          </span>
     </button>
   </form>
 </div>
@@ -102,13 +135,9 @@
 
     <!-- Footer -->
     <p class="text-center mt-10 text-gray-300 text-sm">© 2025 Eventoria. All rights reserved.</p>
-    <script src="/js/navbar.js"></script>
   </div>
-  <div id="transitionBlob"
-     class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200vmax] h-[200vmax] bg-gradient-to-br from-purple-600 to-pink-500 rounded-full scale-0 z-[9999] pointer-events-none transition-transform duration-[1200ms] ease-in-out">
-</div>
+  </div>
   <script src="/js/navbar.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="/js/wave.js"></script>
 </body>
 </html>

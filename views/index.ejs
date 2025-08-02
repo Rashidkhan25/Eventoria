@@ -7,14 +7,27 @@
     <link rel="stylesheet" href="/css/output.css" />
     <link rel="stylesheet" href="/css/styles.css" />
   </head>
-
+<style>
+  .word-space {
+    word-spacing: 5px;
+  }
+ 
+ .mask-clip-path {
+    width: 50%;
+    height: 50%;
+    border-radius: 10%;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+  }
+   @media (max-width: 768px) {
+    .mask-clip-path {
+      height: 80vw;
+    }
+  }
+</style>
 <body>
   <%- include("partials/navbar") %>
-  <!-- Waves -->
-  <!-- SVG Ripple Wave -->
-<div id="waveTopLeft" class="wave top-left"></div>
-<div id="waveBottomRight" class="wave bottom-right"></div>
-
 
     <section
       class="hero relative h-screen flex items-center justify-center overflow-hidden"
@@ -64,13 +77,46 @@
       </div>
     </section>
 
-    <section class="p-10">
-      <h2 class="text-3xl">Content Below Hero</h2>
-      <p>Scroll down to see navbar behavior.</p>
-    </section>
+   <section class="pt-10 min-h-screen w-screen relative" id="about-section">
+  <!-- Title -->
+  <div class="relative mb-8 mt-10 flex flex-col items-center gap-5 z-10">
+    <p class="font-general text-sm uppercase md:text-[14px] text-gray-700">
+      Welcome to Eventoria
+    </p>
 
-    <script src="/js/navbar.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+   <h1 class="mt-5 text-center text-black text-4xl md:text-6xl font-zentry special-font word-space tracking-wide">
+  Disc<b>o</b>ver & C<b>o</b>nnect <br /> through Unforgettable <b>E</b>vents
+</h1>
+
+
+    <div class="about-subtext text-gray-800 max-w-xl mx-auto text-center">
+      <p>Step into a world where every event becomes an experience worth sharing.</p>
+      <p class="text-gray-500">
+        Eventoria brings together communities, organizers, and attendees on a single platform 
+    to create, explore, and enjoy events like never before.
+      </p>
+    </div>
+  </div>
+
+  <!-- ✅ Clip Animation Area -->
+  <div class="h-[100vh] w-screen mt-14 md:mt-20 " id="clip ">
+    <div class="mask-clip-path about-image">
+      <img src="/images/contactUsbg.jpg" alt="Background" class="absolute left-0 top-0 w-full h-full object-cover" />
+    </div>
+  </div>
+</section>
+
+<!-- ✅ Your Other Content -->
+<section class="p-10">
+  <h2 class="text-3xl">Content Below Hero</h2>
+  <p>Scroll down to see navbar behavior.</p>
+</section>
+
+
+<script src="/js/navbar.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="/js/home.js"></script>
 </body>
 
 </html>
