@@ -2,6 +2,11 @@ const express = require ("express");
 const app = express();
 const path = require("path")
 const PORT = 3000;
+const {
+  upcomingEvents,
+  pastEvents,
+  featuredEvents,
+} = require("./data/eventsData");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -23,8 +28,8 @@ app.get("/contact", (req, res,next) => {
   res.render("contact-us");
 });
 
-app.get("/events", (req, res, next) => {
-  res.render("events");
+app.get("/events", (req, res) => {
+  res.render("events", { upcomingEvents, pastEvents, featuredEvents });
 });
 
 app.get("/userlogin", (req, res, next) => {

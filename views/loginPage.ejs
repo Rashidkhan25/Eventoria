@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Host Login | EventSync</title>
+    <title>User Login | EventSync</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
@@ -97,37 +97,10 @@
         transition: color 0.2s ease, transform 0.2s ease;
         z-index: 20;
       }
+
       .close-btn:hover {
         color: #3b82f6;
         transform: scale(1.2);
-      }
-
-      .otp-button {
-        flex-shrink: 0;
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 9999px;
-        border: 2px solid #1d4ed8;
-        background: transparent;
-        color: #60a5fa;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 0 5px rgba(96, 165, 250, 0.5);
-        transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
-      }
-      .otp-button:hover {
-        background-color: #1d4ed8;
-        color: white;
-        transform: scale(1.1);
-      }
-      .otp-button:active {
-        background-color: #1e40af;
-        transform: scale(0.95);
-      }
-      .otp-button svg {
-        width: 1.25rem;
-        height: 1.25rem;
       }
 
       .otp-hidden {
@@ -146,6 +119,7 @@
         margin-top: 0.25rem;
         cursor: pointer;
       }
+
       .resend-text:hover {
         text-decoration: underline;
       }
@@ -158,24 +132,24 @@
 
     <div
       class="relative bg-black/60 backdrop-blur-lg p-10 rounded-md shadow-2xl border border-blue-700 w-full max-w-md text-white z-10 login-animate"
-      id="host-login-box"
+      id="user-login-box"
     >
       <button class="close-btn" onclick="window.location.href='/home'" aria-label="Go back to home" title="Go back to home">
         &times;
       </button>
 
-      <h2 class="text-4xl font-extrabold mb-6 text-center tracking-wide">User Login In</h2>
+      <h2 class="text-4xl font-extrabold mb-6 text-center tracking-wide">User Login</h2>
 
-      <form id="loginForm" class="space-y-5">
+      <form id="userLoginForm" class="space-y-5">
         <input
           type="text"
-          name="username"
+          name="userusername"
           placeholder="Username"
           required
-          class="input fade-in w-full px-4 py-3 rounded bg-blue-900/50 text-white border border-blue-700 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="fade-in w-full px-4 py-3 rounded bg-blue-900/50 text-white border border-blue-700 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        <div class="flex gap-2 input fade-in items-center">
+        <div class="flex gap-2 fade-in items-center">
           <input
             type="tel"
             name="userphonenumber"
@@ -183,21 +157,20 @@
             required
             class="flex-1 px-4 py-3 rounded bg-blue-900/50 text-white border border-blue-700 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          
         </div>
 
-        <div id="otpSection" class="otp-hidden">
+        <div id="userOtpSection" class="otp-hidden">
           <input
             type="text"
-            name="hostotp"
+            name="userotp"
             placeholder="Enter OTP"
-            class="input fade-in w-full px-4 py-3 rounded bg-blue-900/50 text-white border border-blue-700 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="fade-in w-full px-4 py-3 rounded bg-blue-900/50 text-white border border-blue-700 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <p class="resend-text">Resend OTP</p>
         </div>
 
         <button
-          id="submitButton"
+          id="userSubmitButton"
           type="button"
           class="px-4 py-2 bg-blue-700 text-white rounded-[2.5rem] hover:bg-blue-700 transition font-circular-web w-full"
         >
@@ -206,12 +179,12 @@
               Submit
             </span>
             <span class="absolute translate-y-[124%] skew-y-12 transition duration-500 group-hover:translate-y-0 group-hover:skew-y-0">
-            Submit
+              Submit
             </span>
           </span>
         </button>
 
-        <div class="fade-in flex justify-between items-center text-sm text-blue-300 mt-3 input">
+        <div class="fade-in flex justify-between items-center text-sm text-blue-300 mt-3">
           <label class="flex items-center">
             <input type="checkbox" class="mr-2 accent-blue-600" />
             Remember me
@@ -220,48 +193,47 @@
         </div>
       </form>
 
-      <div class="mt-8 text-sm text-blue-300 fade-in input text-center">
+      <div class="mt-8 text-sm text-blue-300 fade-in text-center">
         <a href="/hostlogin" class="text-blue-400 font-medium hover:underline">Are you a Host?</a>
       </div>
     </div>
 
     <script>
-  const loginForm = document.getElementById("loginForm");
-  const otpSection = document.getElementById("otpSection");
-  const submitButton = document.getElementById("submitButton");
-  const loginBox = document.getElementById("host-login-box");
+      const userForm = document.getElementById("userLoginForm");
+      const userOtpSection = document.getElementById("userOtpSection");
+      const userSubmitBtn = document.getElementById("userSubmitButton");
+      const userLoginBox = document.getElementById("user-login-box");
 
-  let otpVisible = false;
+      let userOtpVisible = false;
 
-  submitButton.addEventListener("click", () => {
-    const username = loginForm.hostusername.value.trim();
-    const phone = loginForm.hostphonenumber.value.trim();
-    const otpInput = loginForm.hostotp;
+      userSubmitBtn.addEventListener("click", () => {
+        const username = userForm.userusername.value.trim();
+        const phone = userForm.userphonenumber.value.trim();
+        const otpInput = userForm.userotp;
 
-    if (!otpVisible) {
-      if (!username || !phone) {
-        alert("Please enter both Username and Phone Number.");
-        return;
-      }
+        if (!userOtpVisible) {
+          if (!username || !phone) {
+            alert("Please enter both Username and Phone Number.");
+            return;
+          }
 
-      otpSection.classList.remove("otp-hidden");
-      otpSection.classList.add("otp-visible");
-      otpInput.setAttribute("required", "required");
-      otpVisible = true;
-    } else {
-      if (!otpInput.value.trim()) {
-        alert("Please enter the OTP.");
-        return;
-      }
+          userOtpSection.classList.remove("otp-hidden");
+          userOtpSection.classList.add("otp-visible");
+          otpInput.setAttribute("required", "required");
+          userOtpVisible = true;
+        } else {
+          if (!otpInput.value.trim()) {
+            alert("Please enter the OTP.");
+            return;
+          }
 
-      loginBox.classList.add("submit-animate");
+          userLoginBox.classList.add("submit-animate");
 
-      setTimeout(() => {
-        window.location.href = "/home";
-      }, 1300);
-    }
-  });
-</script>
-
+          setTimeout(() => {
+            window.location.href = "/home";
+          }, 1300);
+        }
+      });
+    </script>
   </body>
 </html>

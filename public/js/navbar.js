@@ -5,6 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("scroll", () => {
     const currentScrollY = window.scrollY;
 
+    if (currentScrollY <= 100) {
+      navbar.style.backgroundColor = "rgba(0,0,0,0)";
+    } else {
+      navbar.style.backgroundColor = "rgba(0,0,0)";
+    }
+
     if (currentScrollY > lastScrollY && currentScrollY > 50) {
       // Scrolling down → fade out
       navbar.style.opacity = "0";
