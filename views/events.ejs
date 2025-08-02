@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <title>Upcoming Events | EventSync</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://cdn.tailwindcss.com"></script>
+ <link rel="stylesheet" href="/css/output.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     * {
@@ -73,6 +74,7 @@
 </head>
 
 <body>
+  <%- include("partials/navbar") %>
   <div class="slider-container">
     <!-- Sliding Upcoming Events -->
     <div id="sliderWrapper" class="slider-wrapper">
@@ -170,5 +172,8 @@
     carousel.scrollLeft += e.deltaY; // scroll horizontally instead
   }, { passive: false });
   </script>
+  <script src="/js/navbar.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </body>
 </html>
