@@ -1,15 +1,27 @@
 gsap.registerPlugin(ScrollTrigger);
 
 const audio = document.getElementById("zoomAudio");
+const enableAudioBtn = document.getElementById("enableAudioBtn");
+const text = document.getElementById("musicText");
+const wrapper = document.getElementById("musicWrapper");
 
-// ✅ Force autoplay: start muted
-audio.volume = 0;
-audio.muted = true;
-audio.play().then(() => {
-  // Once it starts, unmute it so volume control works
-  audio.muted = false;
-}).catch(err => console.log("Autoplay blocked:", err));
 
+let audioEnabled = false;
+
+// 🎵 User clicks → allow audio to play
+enableAudioBtn.addEventListener("click", () => {
+  audioEnabled = true;
+  audio.volume = 0;
+  audio.loop = true;   // Keeps playing till end of site
+  audio.play().then(() => {
+    console.log("Audio started");
+  }).catch(err => console.log("Autoplay blocked:", err));
+
+  // Hide the button after enabling
+  wrapper.style.display = "none";
+});
+
+// ✅ Scroll Animation (Zoom + Volume Fade-in)
 const clipAnimation = gsap.timeline({
   scrollTrigger: {
     trigger: "#clip",
@@ -18,20 +30,16 @@ const clipAnimation = gsap.timeline({
     scrub: 0.5,
     pin: true,
     pinSpacing: true,
-    onEnter: () => {
-      // Play if it somehow didn't start
-      if (audio.paused) {
-        audio.play().catch(() => {});
-      }
-    },
     onUpdate: (self) => {
-      // ✅ Gradually increase volume with scroll progress
-      audio.volume = Math.min(1, self.progress);
+      if (audioEnabled) {
+        // Increase volume gradually during scroll
+        audio.volume = Math.min(1, self.progress);
+      }
     }
   }
 });
 
-// ✅ Zoom animation
+// Zoom Animation
 clipAnimation.to(".mask-clip-path", {
   width: "100vw",
   height: "100vh",

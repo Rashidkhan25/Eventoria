@@ -32,6 +32,22 @@
     -webkit-text-stroke: 4px #9ca3af;
     opacity: 0.9; 
   }
+  .music-bars .bar {
+  display: inline-block;
+  animation: soundWave 1s infinite ease-in-out;
+}
+
+.music-bars .bar:nth-child(1) { animation-delay: 0s; }
+.music-bars .bar:nth-child(2) { animation-delay: 0.2s; }
+.music-bars .bar:nth-child(3) { animation-delay: 0.4s; }
+.music-bars .bar:nth-child(4) { animation-delay: 0.6s; }
+
+@keyframes soundWave {
+  0% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+  100% { transform: scaleY(0.4); }
+}
+
    @media (max-width: 768px) {
     .mask-clip-path {
       height: 80vw;
@@ -108,6 +124,21 @@
     to create, explore, and enjoy events like never before.
       </p>
     </div>
+    <div class="flex flex-col items-center gap-1" id="musicWrapper">
+    <button id="enableAudioBtn" 
+      class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-3xl shadow-md transition flex items-center gap-2">
+      <span class="music-bars flex items-end gap-[2px] h-5">
+        <span class="bar w-[3px] h-[6px] bg-white"></span>
+        <span class="bar w-[3px] h-[10px] bg-white"></span>
+        <span class="bar w-[3px] h-[14px] bg-white"></span>
+        <span class="bar w-[3px] h-[8px] bg-white"></span>
+      </span>
+    </button>
+
+    <p id="musicText" class="mt-1 font-general text-xs uppercase md:text-[8px] text-gray-700 tracking-tight leading-none">
+      Click to Play Music
+    </p>
+  </div>
   </div>
 
   <audio id="zoomAudio" src="/audio/concert.mp3"></audio>
