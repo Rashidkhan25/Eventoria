@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Events | EventSync</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white">
+  <div class="px-6 py-10">
+    <h1 class="text-4xl font-extrabold mb-10">🎉 Discover Events</h1>
+
+    <!-- Carousel Section -->
+    <div class="space-y-10">
+      <% const sections = ["Popular Events", "Upcoming", "Hackathons"]; %>
+      <% sections.forEach((section, idx) => { %>
+        <div>
+          <h2 class="text-2xl font-semibold mb-4"><%= section %></h2>
+
+          <!-- Horizontal Scrollable Carousel -->
+          <div class="flex gap-6 overflow-x-auto scrollbar-hide pb-2">
+            <% events[idx].forEach(event => { %>
+              <div class="relative min-w-[250px] h-[360px] bg-gray-800 rounded-xl overflow-hidden shadow-md group transform transition duration-300 hover:scale-105">
+
+                <!-- Event Poster -->
+                <img src="<%= event.image %>" alt="<%= event.title %>" class="w-full h-full object-cover opacity-80 group-hover:opacity-50 transition duration-300">
+
+                <!-- Hover Details -->
+                <div class="absolute inset-0 p-4 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end bg-gradient-to-t from-black/90 to-transparent">
+                  <h3 class="text-xl font-bold mb-1"><%= event.title %></h3>
+                  <p class="text-sm text-gray-300 mb-3"><%= event.date %> • <%= event.location %></p>
+                  <div class="flex gap-2">
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-1 rounded-full">Book</button>
+                    <button class="bg-white text-black text-sm px-4 py-1 rounded-full hover:bg-gray-200">❤️ Like</button>
+                  </div>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+    <!-- Footer -->
+    <p class="text-center text-gray-500 text-sm mt-16">© 2025 EventSync. All rights reserved.</p>
+  </div>
+</body>
+</html>

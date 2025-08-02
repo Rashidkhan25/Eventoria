@@ -11,6 +11,11 @@
 
 <body>
   <%- include("partials/navbar") %>
+  <!-- Waves -->
+  <!-- SVG Ripple Wave -->
+<div id="waveTopLeft" class="wave top-left"></div>
+<div id="waveBottomRight" class="wave bottom-right"></div>
+
 
     <section class="hero relative h-screen flex items-center justify-center overflow-hidden">
       <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
@@ -26,7 +31,7 @@
         </h3>
 
         <p class="mt-4 text-lg text-gray-200 font-general leading-relaxed">
-          Eventoria is your ultimate platform for discovering, hosting, and experiencing events worldwide.
+          Eventoria is your ultimate platform for discovering, hosting, and experiencing events worlde.
         </p>
         <button
           class="mt-5 flex gap-1 px-5 py-3 rounded-[4rem] bg-blue-600 text-white hover:bg-blue-700 transition">
@@ -50,9 +55,12 @@
       <h2 class="text-3xl">Content Below Hero</h2>
       <p>Scroll down to see navbar behavior.</p>
     </section>
-
-    <script src="/js/navbar.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <div id="transitionBlob"
+     class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200vmax] h-[200vmax] bg-gradient-to-br from-purple-600 to-pink-500 rounded-full scale-0 z-[9999] pointer-events-none transition-transform duration-[1200ms] ease-in-out">
+</div>
+ <script src="/js/navbar.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="/js/wave.js"></script>
 </body>
 
 </html>

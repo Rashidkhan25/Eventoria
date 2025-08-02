@@ -23,6 +23,10 @@ app.get("/contact", (req, res,next) => {
   res.render("contact-us");
 });
 
+app.get("/events", (req, res, next) => {
+  res.render("events");
+});
+
 app.listen(PORT , () => {
   console.log(`Server running on http://localhost:${PORT}`);
 })

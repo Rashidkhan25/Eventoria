@@ -28,4 +28,23 @@
 .nav-link:hover::after {
   width: 100%;
 }
+.wave {
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, #3b82f6 0%, #1e3a8a 100%);
+  border-radius: 50%;
+  z-index: 9999;
+  transform: scale(0);
+  pointer-events: none;
+}
 
+.top-left {
+  top: -100%;
+  left: -100%;
+}
+
+.bottom-right {
+  bottom: -100%;
+  right: -100%;
+}
