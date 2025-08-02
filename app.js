@@ -19,6 +19,10 @@ app.get("/home", (req,res,next) => {
   res.render("index");
 })
 
+app.get("/contact", (req, res,next) => {
+  res.render("contact-us");
+});
+
 app.listen(PORT , () => {
   console.log(`Server running on http://localhost:${PORT}`);
 })

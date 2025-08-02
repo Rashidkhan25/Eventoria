@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us | EventSync</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/output.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in {
+      animation: fadeInUp 1s ease-out;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-cover bg-center bg-fixed relative text-white"
+      style="background-image: url('/images/contactUsbg.jpg');">
+       <%- include("partials/navbar") %>
+
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm z-0"></div>
+
+  <!-- Main Content -->
+  <div class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-32">
+
+    <!-- Title -->
+    <h1 class="text-5xl md:text-6xl font-extrabold text-center mb-6 tracking-tight border-b-2 border-white inline-block pb-2">
+      Contact Us
+    </h1>
+<!-- Contact Box -->
+<div class="animate-fade-in w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-0 bg-black bg-opacity-10 rounded-2xl shadow-2xl overflow-hidden mt-6 backdrop-blur-lg transition hover:scale-[1.01] duration-300">
+
+  <!-- Left Info -->
+  <div class="p-10 flex flex-col justify-between border-b md:border-b-0 md:border-r border-white/20">
+    <div>
+      <h2 class="text-4xl font-semibold mb-6">Let’s Make It Happen</h2>
+      <p class="text-gray-200 text-base leading-relaxed">
+        Got an idea? Planning an event? Or just have a question?<br>
+        We’re here to bring your vision to life.
+      </p>
+    </div>
+    <div class="space-y-5 mt-10 text-sm tracking-wide">
+      <div>
+        <p class="text-gray-400 uppercase text-xs">Head Office</p>
+        <p class="text-white">123 Innovation Avenue,<br/>Mumbai, India</p>
+      </div>
+      <div>
+        <p class="text-gray-400 uppercase text-xs">Phone</p>
+        <p class="text-white">+91 98765 43210</p>
+      </div>
+      <div>
+        <p class="text-gray-400 uppercase text-xs">Email</p>
+        <p class="text-white">support@eventsync.in</p>
+      </div>
+      <div>
+        <p class="text-gray-400 uppercase text-xs">Website</p>
+        <p class="text-white">www.eventsync.in</p>
+      </div>
+    </div>
+  </div>
+
+<!-- Right Form -->
+<div class="p-10 space-y-6">
+  <h3 class="text-2xl font-semibold">Send us a Message</h3>
+  <form action="/contact" method="POST" class="space-y-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input name="name" type="text" placeholder="Full Name"
+        class="w-full bg-white/20 placeholder-white text-white px-4 py-3 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-400 transition" />
+      <input name="email" type="email" placeholder="Email Address"
+        class="w-full bg-white/20 placeholder-white text-white px-4 py-3 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-400 transition" />
+    </div>
+    <input name="subject" type="text" placeholder="Subject"
+      class="w-full bg-white/20 placeholder-white text-white px-4 py-3 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-400 transition" />
+    <textarea name="textarea" rows="5" placeholder="Write your message..."
+      class="w-full bg-white/20 placeholder-white text-white px-4 py-3 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-400 transition"></textarea>
+    <button type="submit"
+      class="w-full bg-white text-black font-semibold py-3 rounded-[3rem] shadow-md transition">
+      Send Message
+    </button>
+  </form>
+</div>
+
+</div>
+
+
+    <!-- Footer -->
+    <p class="text-center mt-10 text-gray-300 text-sm">© 2025 EventSync. All rights reserved.</p>
+  </div>
+</body>
+</html>
