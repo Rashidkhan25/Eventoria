@@ -1,22 +1,45 @@
- gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
-  const clipAnimation = gsap.timeline({
-    scrollTrigger: {
-      trigger: "#clip",
-      start: "center center",
-      end: "+=800 center",
-      scrub: 0.5,
-      pin: true,
-      pinSpacing: true,
+const audio = document.getElementById("zoomAudio");
+
+// ✅ Force autoplay: start muted
+audio.volume = 0;
+audio.muted = true;
+audio.play().then(() => {
+  // Once it starts, unmute it so volume control works
+  audio.muted = false;
+}).catch(err => console.log("Autoplay blocked:", err));
+
+const clipAnimation = gsap.timeline({
+  scrollTrigger: {
+    trigger: "#clip",
+    start: "center center",
+    end: "+=800 center",
+    scrub: 0.5,
+    pin: true,
+    pinSpacing: true,
+    onEnter: () => {
+      // Play if it somehow didn't start
+      if (audio.paused) {
+        audio.play().catch(() => {});
+      }
     },
-  });
+    onUpdate: (self) => {
+      // ✅ Gradually increase volume with scroll progress
+      audio.volume = Math.min(1, self.progress);
+    }
+  }
+});
 
-  clipAnimation.to(".mask-clip-path", {
-    width: "100vw",
-    height: "100vh",
-    borderRadius: 0,
-    ease: "power2.inOut"
-  });
+// ✅ Zoom animation
+clipAnimation.to(".mask-clip-path", {
+  width: "100vw",
+  height: "100vh",
+  borderRadius: 0,
+  ease: "power2.inOut"
+});
+
+
 
   //bento animation 
   document.addEventListener("DOMContentLoaded", () => {
