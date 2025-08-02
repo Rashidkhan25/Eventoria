@@ -2,48 +2,173 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Upcoming Events</title>
+  <title>Upcoming Events | EventSync</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    .slide { display: none; }
-    .active-slide { display: block; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-y: visible;
+      font-family: 'Inter', sans-serif;
+      background-color: black;
+      color: white;
+    }
+
+    .slider-container {
+      position: relative;
+      overflow: hidden;
+      width: 100vw;
+      min-height: 100vh;
+
+    }
+
+    .slider-wrapper {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 1s ease-in-out;
+    }
+
+    .slide {
+      flex: 0 0 100%;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .fade-bottom {
+      position: absolute;
+      bottom: 0;
+      height: 50%;
+      width: 100%;
+      background-image: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0));
+      z-index: 5;
+    }
+
+    .black-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 4;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   </style>
 </head>
-<body class="bg-black text-white flex items-center justify-center min-h-screen">
 
-  <!-- Centered Slideshow Box -->
-  <div class="relative w-[90%] max-w-5xl h-[80vh] overflow-hidden rounded-2xl shadow-lg">
-    <% upcomingEvents.forEach((event, idx) => { %>
-      <div class="slide absolute w-full h-full transition-opacity duration-1000 ease-in-out <%= idx === 0 ? 'active-slide' : '' %> rounded-2xl overflow-hidden">
-        <img src="<%= event.poster %>" class="w-full h-full object-cover opacity-50 rounded-2xl" />
-        <div class="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50 text-center px-4 rounded-2xl">
-          <h1 class="text-5xl font-bold mb-4"><%= event.title %></h1>
-          <p class="text-xl mb-2"><%= event.date %></p>
-          <p class="text-lg max-w-2xl"><%= event.description %></p>
+<body>
+  <div class="slider-container">
+    <!-- Sliding Upcoming Events -->
+    <div id="sliderWrapper" class="slider-wrapper">
+      <% upcomingEvents.forEach((event) => { %>
+        <div class="slide">
+          <img src="<%= event.poster %>" alt="Event Poster" class="w-full h-full object-cover absolute z-0" />
+          <div class="black-overlay"></div>
+          <div class="fade-bottom"></div>
+
+          <div class="absolute bottom-[25rem] left-12 z-10 max-w-4xl space-y-4">
+            <h1 class="text-5xl md:text-6xl font-extrabold"><%= event.title %></h1>
+            <p class="text-xl font-semibold text-gray-300"><%= event.date %></p>
+            <p class="text-md text-gray-200 max-w-xl"><%= event.description %></p>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+   <!-- Fixed Nearby Events Carousel -->
+<div class="absolute bottom-0 left-0 right-0 px-10 pb-6 z-20 bg-gradient-to-t from-black/80 to-transparent">
+  <h2 class="text-2xl font-bold mb-[1rem]">Nearby Events</h2>
+ <div class="relative overflow-visible">
+  <div id="carouselScroll" class="flex gap-[1rem] overflow-visible scrollbar-hide relative z-10">
+    <% nearbyEvents.forEach((nearbyevent) => { %>
+      <div class="min-w-[300px] relative group">
+        <!-- Original image thumbnail -->
+        <img 
+          src="<%= nearbyevent.poster %>" 
+          alt="<%= nearbyevent.title %>" 
+          class="w-[25rem] h-[10rem] object-cover rounded transition-transform duration-300" />
+
+        <!-- Floating expanded card -->
+        <div class="absolute top-[8rem] left-[-2rem] w-[22rem] h-[30rem] bg-zinc-900 rounded-lg shadow-2xl z-50 scale-95 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 -translate-y-[9rem]">
+          <img 
+            src="<%= nearbyevent.poster %>" 
+            alt="<%= nearbyevent.title %>" 
+            class="w-full h-[10rem] object-cover rounded-t-lg" />
+          <div class="p-4">
+            <h3 class="text-white text-lg font-bold"><%= nearbyevent.title %></h3>
+            <p class="text-sm text-gray-400"><%= nearbyevent.date %></p>
+            <p class="text-xs text-gray-300 mt-2 line-clamp-2"><%= nearbyevent.description %></p>
+          </div>
         </div>
       </div>
     <% }) %>
   </div>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 px-10 pb-6 z-20 bg-gradient-to-t from-black/80 to-transparent">
+  <h2 class="text-2xl font-bold mb-[1rem]">Nearby Events</h2>
+ <div class="relative overflow-visible">
+  <div id="carouselScroll" class="flex gap-[1rem] overflow-visible scrollbar-hide relative z-10">
+    <% nearbyEvents.forEach((nearbyevent) => { %>
+      <div class="min-w-[300px] relative group">
+        <!-- Original image thumbnail -->
+        <img 
+          src="<%= nearbyevent.poster %>" 
+          alt="<%= nearbyevent.title %>" 
+          class="w-[25rem] h-[10rem] object-cover rounded transition-transform duration-300" />
+
+        <!-- Floating expanded card -->
+        <div class="absolute top-[8rem] left-[-2rem] w-[22rem] h-[30rem] bg-zinc-900 rounded-lg shadow-2xl z-50 scale-95 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 -translate-y-[9rem]">
+          <img 
+            src="<%= nearbyevent.poster %>" 
+            alt="<%= nearbyevent.title %>" 
+            class="w-full h-[10rem] object-cover rounded-t-lg" />
+          <div class="p-4">
+            <h3 class="text-white text-lg font-bold"><%= nearbyevent.title %></h3>
+            <p class="text-sm text-gray-400"><%= nearbyevent.date %></p>
+            <p class="text-xs text-gray-300 mt-2 line-clamp-2"><%= nearbyevent.description %></p>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+</div>
+
+  </div>
 
   <script>
-    let currentSlide = 0;
+    const sliderWrapper = document.getElementById("sliderWrapper");
     const slides = document.querySelectorAll(".slide");
+    let index = 0;
 
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.remove("active-slide");
-        if (i === index) slide.classList.add("active-slide");
-      });
-    }
+    setInterval(() => {
+      index = (index + 1) % slides.length;
+      sliderWrapper.style.transform = `translateX(-${index * 100}vw)`;
+    }, 4000);
 
-    function nextSlide() {
-      currentSlide = (currentSlide + 1) % slides.length;
-      showSlide(currentSlide);
-    }
+     const carousel = document.getElementById('carouselScroll');
 
-    setInterval(nextSlide, 3000);
+  carousel.addEventListener('wheel', (e) => {
+    e.preventDefault(); // block default vertical scroll
+    carousel.scrollLeft += e.deltaY; // scroll horizontally instead
+  }, { passive: false });
   </script>
-
 </body>
 </html>

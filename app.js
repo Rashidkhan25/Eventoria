@@ -4,7 +4,7 @@ const path = require("path")
 const PORT = 3000;
 const {
   upcomingEvents,
-  pastEvents,
+  nearbyEvents,
   featuredEvents,
 } = require("./data/eventsData");
 
@@ -29,7 +29,7 @@ app.get("/contact", (req, res,next) => {
 });
 
 app.get("/events", (req, res) => {
-  res.render("events", { upcomingEvents, pastEvents, featuredEvents });
+  res.render("events", { upcomingEvents, nearbyEvents, featuredEvents });
 });
 
 app.get("/userlogin", (req, res, next) => {
