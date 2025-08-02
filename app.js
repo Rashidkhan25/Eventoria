@@ -27,6 +27,13 @@ app.get("/events", (req, res, next) => {
   res.render("events");
 });
 
+app.get("/userlogin", (req, res, next) => {
+  res.render("loginPage");
+});
+app.get("/hostlogin", (req, res, next) => {
+  res.render("hostloginPage");
+});
+
 app.listen(PORT , () => {
   console.log(`Server running on http://localhost:${PORT}`);
 })

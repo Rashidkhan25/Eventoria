@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Host Login | EventSync</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+
+      .background-image {
+        background: url('/images/back.png') no-repeat center center;
+        background-size: cover;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        z-index: -2;
+      }
+
+      .background-blur {
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(6px);
+        background-color: rgba(0, 0, 0, 0.4);
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        z-index: -1;
+      }
+
+      @keyframes loginFade {
+        0% {
+          opacity: 0;
+          transform: scale(0.8) translateY(50px);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      .login-animate {
+        animation: loginFade 1s ease-out forwards;
+      }
+
+      .fade-in {
+        animation: fadeIn 1s ease-in-out forwards;
+        opacity: 0;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes crazyExit {
+        0% {
+          transform: perspective(800px) rotateY(0deg) scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: perspective(800px) rotateY(90deg) scale(1.2);
+          opacity: 0.6;
+        }
+        100% {
+          transform: perspective(800px) rotateY(180deg) scale(0.3);
+          opacity: 0;
+        }
+      }
+
+      .submit-animate {
+        animation: crazyExit 1.2s ease-in-out forwards;
+        transform-origin: center;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 2rem;
+        font-size: 1.75rem;
+        color: white;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: color 0.2s ease, transform 0.2s ease;
+        z-index: 20;
+      }
+      .close-btn:hover {
+        color: #3b82f6;
+        transform: scale(1.2);
+      }
+
+      .otp-button {
+        flex-shrink: 0;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 9999px;
+        border: 2px solid #1d4ed8;
+        background: transparent;
+        color: #60a5fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 5px rgba(96, 165, 250, 0.5);
+        transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+      }
+      .otp-button:hover {
+        background-color: #1d4ed8;
+        color: white;
+        transform: scale(1.1);
+      }
+      .otp-button:active {
+        background-color: #1e40af;
+        transform: scale(0.95);
+      }
+      .otp-button svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+
+      .otp-hidden {
+        display: none;
+      }
+
+      .otp-visible {
+        display: block;
+        animation: fadeIn 0.5s ease-out;
+      }
+
+      .resend-text {
+        font-size: 0.75rem;
+        color: #93c5fd;
+        text-align: right;
+        margin-top: 0.25rem;
+        cursor: pointer;
+      }
+      .resend-text:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen flex items-center justify-center relative">
+    <div class="background-image"></div>
+    <div class="background-blur"></div>
+
+    <div
+      class="relative bg-black/60 backdrop-blur-lg p-10 rounded-md shadow-2xl border border-blue-700 w-full max-w-md text-white z-10 login-animate"
+      id="host-login-box"
+    >
+      <button class="close-btn" onclick="window.location.href='/home'" aria-label="Go back to home" title="Go back to home">
+        &times;
+      </button>
+
+      <h2 class="text-4xl font-extrabold mb-6 text-center tracking-wide"> Host Login In</h2>
+
+      <form id="loginForm" class="space-y-5">
+        <input
+          type="text"
+          name="hostusername"
+          placeholder="Host Username"
+          required
+          class="input fade-in w-full px-4 py-3 rounded bg-blue-900/50 text-white border border-blue-700 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        <div class="flex gap-2 input fade-in items-center">
+          <input
+            type="tel"
+            name="hostphonenumber"
+            placeholder="Phone Number"
+            required
+            class="flex-1 px-4 py-3 rounded bg-blue-900/50 text-white border border-blue-700 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          
+        </div>
+
+        <div id="otpSection" class="otp-hidden">
+          <input
+            type="text"
+            name="hostotp"
+            placeholder="Enter OTP"
+            class="input fade-in w-full px-4 py-3 rounded bg-blue-900/50 text-white border border-blue-700 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <p class="resend-text">Resend OTP</p>
+        </div>
+
+        <button
+          id="submitButton"
+          type="button"
+          class="px-4 py-2 bg-blue-700 text-white rounded-[2.5rem] hover:bg-blue-700 transition font-circular-web w-full"
+        >
+          <span class="relative inline-flex overflow-hidden group w-full justify-center">
+            <span class="translate-y-0 skew-y-0 transition duration-500 group-hover:-translate-y-[120%] group-hover:skew-y-12">
+              Submit
+            </span>
+            <span class="absolute translate-y-[124%] skew-y-12 transition duration-500 group-hover:translate-y-0 group-hover:skew-y-0">
+            Submit
+            </span>
+          </span>
+        </button>
+
+        <div class="fade-in flex justify-between items-center text-sm text-blue-300 mt-3 input">
+          <label class="flex items-center">
+            <input type="checkbox" class="mr-2 accent-blue-600" />
+            Remember me
+          </label>
+          <a href="#" class="hover:underline text-blue-400">Need help?</a>
+        </div>
+      </form>
+
+      <div class="mt-8 text-sm text-blue-300 fade-in input text-center">
+        <a href="/userlogin" class="text-blue-400 font-medium hover:underline">Are you a User?</a>
+      </div>
+    </div>
+
+    <script>
+  const loginForm = document.getElementById("loginForm");
+  const otpSection = document.getElementById("otpSection");
+  const submitButton = document.getElementById("submitButton");
+  const loginBox = document.getElementById("host-login-box");
+
+  let otpVisible = false;
+
+  submitButton.addEventListener("click", () => {
+    const username = loginForm.hostusername.value.trim();
+    const phone = loginForm.hostphonenumber.value.trim();
+    const otpInput = loginForm.hostotp;
+
+    if (!otpVisible) {
+      if (!username || !phone) {
+        alert("Please enter both Username and Phone Number.");
+        return;
+      }
+
+      otpSection.classList.remove("otp-hidden");
+      otpSection.classList.add("otp-visible");
+      otpInput.setAttribute("required", "required");
+      otpVisible = true;
+    } else {
+      if (!otpInput.value.trim()) {
+        alert("Please enter the OTP.");
+        return;
+      }
+
+      loginBox.classList.add("submit-animate");
+
+      setTimeout(() => {
+        window.location.href = "/home";
+      }, 1300);
+    }
+  });
+</script>
+
+  </body>
+</html>
