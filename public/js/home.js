@@ -1,22 +1,53 @@
- gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
-  const clipAnimation = gsap.timeline({
-    scrollTrigger: {
-      trigger: "#clip",
-      start: "center center",
-      end: "+=800 center",
-      scrub: 0.5,
-      pin: true,
-      pinSpacing: true,
-    },
-  });
+const audio = document.getElementById("zoomAudio");
+const enableAudioBtn = document.getElementById("enableAudioBtn");
+const text = document.getElementById("musicText");
+const wrapper = document.getElementById("musicWrapper");
 
-  clipAnimation.to(".mask-clip-path", {
-    width: "100vw",
-    height: "100vh",
-    borderRadius: 0,
-    ease: "power2.inOut"
-  });
+
+let audioEnabled = false;
+
+// 🎵 User clicks → allow audio to play
+enableAudioBtn.addEventListener("click", () => {
+  audioEnabled = true;
+  audio.volume = 0;
+  audio.loop = true;   // Keeps playing till end of site
+  audio.play().then(() => {
+    console.log("Audio started");
+  }).catch(err => console.log("Autoplay blocked:", err));
+
+  // Hide the button after enabling
+  wrapper.style.display = "none";
+});
+
+// ✅ Scroll Animation (Zoom + Volume Fade-in)
+const clipAnimation = gsap.timeline({
+  scrollTrigger: {
+    trigger: "#clip",
+    start: "center center",
+    end: "+=800 center",
+    scrub: 0.5,
+    pin: true,
+    pinSpacing: true,
+    onUpdate: (self) => {
+      if (audioEnabled) {
+        // Increase volume gradually during scroll
+        audio.volume = Math.min(1, self.progress);
+      }
+    }
+  }
+});
+
+// Zoom Animation
+clipAnimation.to(".mask-clip-path", {
+  width: "100vw",
+  height: "100vh",
+  borderRadius: 0,
+  ease: "power2.inOut"
+});
+
+
 
   //bento animation 
   document.addEventListener("DOMContentLoaded", () => {
@@ -47,4 +78,21 @@
   });
 });
 
-  
+//bento card border effect
+const card = document.querySelector(".bento-tilt");
+
+card.addEventListener("mousemove", (e) => {
+  const { offsetWidth: w, offsetHeight: h } = card;
+  const { offsetX: x, offsetY: y } = e;
+
+  card.classList.remove("glow-right", "glow-left", "glow-top", "glow-bottom");
+
+  if (x > w * 0.75) card.classList.add("glow-right");
+  else if (x < w * 0.25) card.classList.add("glow-left");
+  else if (y < h * 0.25) card.classList.add("glow-top");
+  else if (y > h * 0.75) card.classList.add("glow-bottom");
+});
+
+card.addEventListener("mouseleave", () => {
+  card.classList.remove("glow-right", "glow-left", "glow-top", "glow-bottom");
+});

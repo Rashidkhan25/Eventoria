@@ -628,6 +628,10 @@ video {
   visibility: visible;
 }
 
+.invisible{
+  visibility: hidden;
+}
+
 .fixed{
   position: fixed;
 }
@@ -742,6 +746,10 @@ video {
   margin-right: -20px;
 }
 
+.mt-1{
+  margin-top: 0.25rem;
+}
+
 .mt-10{
   margin-top: 2.5rem;
 }
@@ -772,6 +780,46 @@ video {
 
 .mt-8{
   margin-top: 2rem;
+}
+
+.mt-\[\]{
+  margin-top: ;
+}
+
+.mt-\[-\]{
+  margin-top: -;
+}
+
+.mt-\[-5px\]{
+  margin-top: -5px;
+}
+
+.mt-\[-20px\]{
+  margin-top: -20px;
+}
+
+.mt-\[-25px\]{
+  margin-top: -25px;
+}
+
+.mt-\[-30px\]{
+  margin-top: -30px;
+}
+
+.mt-\[-40px\]{
+  margin-top: -40px;
+}
+
+.mt-\[-50px\]{
+  margin-top: -50px;
+}
+
+.mb-3{
+  margin-bottom: 0.75rem;
+}
+
+.mb-5{
+  margin-bottom: 1.25rem;
 }
 
 .line-clamp-2{
@@ -806,12 +854,20 @@ video {
   height: 100%;
 }
 
+.h-5{
+  height: 1.25rem;
+}
+
 .h-64{
   height: 16rem;
 }
 
 .h-\[100vh\]{
   height: 100vh;
+}
+
+.h-\[10px\]{
+  height: 10px;
 }
 
 .h-\[10rem\]{
@@ -822,8 +878,20 @@ video {
   height: 135vh;
 }
 
+.h-\[14px\]{
+  height: 14px;
+}
+
 .h-\[30rem\]{
   height: 30rem;
+}
+
+.h-\[6px\]{
+  height: 6px;
+}
+
+.h-\[8px\]{
+  height: 8px;
 }
 
 .h-full{
@@ -852,6 +920,10 @@ video {
 
 .w-\[25rem\]{
   width: 25rem;
+}
+
+.w-\[3px\]{
+  width: 3px;
 }
 
 .w-fit{
@@ -967,8 +1039,16 @@ video {
   flex-direction: column;
 }
 
+.items-end{
+  align-items: flex-end;
+}
+
 .items-center{
   align-items: center;
+}
+
+.justify-end{
+  justify-content: flex-end;
 }
 
 .justify-center{
@@ -1009,6 +1089,10 @@ video {
 
 .gap-\[1rem\]{
   gap: 1rem;
+}
+
+.gap-\[2px\]{
+  gap: 2px;
 }
 
 .space-x-8 > :not([hidden]) ~ :not([hidden]){
@@ -1055,6 +1139,10 @@ video {
   border-radius: 1rem;
 }
 
+.rounded-3xl{
+  border-radius: 1.5rem;
+}
+
 .rounded-\[2\.5rem\]{
   border-radius: 2.5rem;
 }
@@ -1092,13 +1180,59 @@ video {
   border-bottom-width: 1px;
 }
 
+.border-t{
+  border-top-width: 1px;
+}
+
+.border-t-8{
+  border-top-width: 8px;
+}
+
+.border-b-8{
+  border-bottom-width: 8px;
+}
+
+.border-t-4{
+  border-top-width: 4px;
+}
+
+.border-b-4{
+  border-bottom-width: 4px;
+}
+
 .border-blue-700{
   --tw-border-opacity: 1;
   border-color: rgb(29 78 216 / var(--tw-border-opacity, 1));
 }
 
+.border-white\/15{
+  border-color: rgb(255 255 255 / 0.15);
+}
+
 .border-white\/20{
   border-color: rgb(255 255 255 / 0.2);
+}
+
+.border-white\/30{
+  border-color: rgb(255 255 255 / 0.3);
+}
+
+.border-white\/70{
+  border-color: rgb(255 255 255 / 0.7);
+}
+
+.border-t-slate-50{
+  --tw-border-opacity: 1;
+  border-top-color: rgb(248 250 252 / var(--tw-border-opacity, 1));
+}
+
+.border-t-white{
+  --tw-border-opacity: 1;
+  border-top-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
+}
+
+.border-t-white\/30{
+  border-top-color: rgb(255 255 255 / 0.3);
 }
 
 .bg-black{
@@ -1256,6 +1390,16 @@ video {
   padding-bottom: 1rem;
 }
 
+.px-1{
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+.py-5{
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
 .pb-2{
   padding-bottom: 0.5rem;
 }
@@ -1270,6 +1414,10 @@ video {
 
 .pt-10{
   padding-top: 2.5rem;
+}
+
+.pb-10{
+  padding-bottom: 2.5rem;
 }
 
 .text-center{
@@ -1341,6 +1489,11 @@ video {
   line-height: 1rem;
 }
 
+.text-3xl{
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
 .font-bold{
   font-weight: 700;
 }
@@ -1361,8 +1514,16 @@ video {
   text-transform: uppercase;
 }
 
+.leading-none{
+  line-height: 1;
+}
+
 .leading-relaxed{
   line-height: 1.625;
+}
+
+.tracking-tight{
+  letter-spacing: -0.025em;
 }
 
 .tracking-wide{
@@ -1638,6 +1799,18 @@ body {
   opacity: 1;
 }
 
+@media (min-width: 640px){
+  .sm\:px-5{
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .sm\:px-2{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
 @media (min-width: 768px){
   .md\:left-16{
     left: 4rem;
@@ -1690,6 +1863,11 @@ body {
     padding-bottom: 0.75rem;
   }
 
+  .md\:px-2{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
   .md\:text-6xl{
     font-size: 3.75rem;
     line-height: 1;
@@ -1707,6 +1885,10 @@ body {
 
   .md\:text-\[14px\]{
     font-size: 14px;
+  }
+
+  .md\:text-\[8px\]{
+    font-size: 8px;
   }
 
   .md\:text-base{
