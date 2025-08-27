@@ -78,4 +78,21 @@ clipAnimation.to(".mask-clip-path", {
   });
 });
 
-  
+//bento card border effect
+const card = document.querySelector(".bento-tilt");
+
+card.addEventListener("mousemove", (e) => {
+  const { offsetWidth: w, offsetHeight: h } = card;
+  const { offsetX: x, offsetY: y } = e;
+
+  card.classList.remove("glow-right", "glow-left", "glow-top", "glow-bottom");
+
+  if (x > w * 0.75) card.classList.add("glow-right");
+  else if (x < w * 0.25) card.classList.add("glow-left");
+  else if (y < h * 0.25) card.classList.add("glow-top");
+  else if (y > h * 0.75) card.classList.add("glow-bottom");
+});
+
+card.addEventListener("mouseleave", () => {
+  card.classList.remove("glow-right", "glow-left", "glow-top", "glow-bottom");
+});

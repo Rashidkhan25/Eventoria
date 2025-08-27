@@ -53,6 +53,29 @@
       height: 80vw;
     }
   }
+
+  .bento-tilt {
+  box-shadow: none;
+  }
+
+  .bento-tilt:hover{
+    position: relative;
+    transition: box-shadow 0.3s ease;
+  }
+
+.bento-tilt.glow-right {
+  box-shadow: 7px 0px 25px 5px rgb(0 130 255 / 80%);
+}
+.bento-tilt.glow-left {
+  box-shadow: -7px 0 25px 5px rgba(255, 0, 200, 0.8);
+}
+.bento-tilt.glow-top {
+  box-shadow: 0 -10px 25px rgba(0, 200, 255, 0.8);
+}
+.bento-tilt.glow-bottom {
+  box-shadow: 0 10px 25px rgba(0, 200, 255, 0.8);
+}
+
 </style>
 <body>
   <%- include("partials/navbar") %>
@@ -84,8 +107,7 @@
           Eventoria is your ultimate platform for discovering, hosting, and experiencing events worldwide.
         </p>
         <button
-          class="mt-3 md:mt-5 flex gap-1 px-3 py-3 md:px-5 md:py-3 rounded-[4rem] bg-blue-600 text-white hover:bg-blue-700 transition"
-        >
+          class="mt-3 md:mt-5 flex gap-1 px-3 py-3 md:px-5 md:py-3 rounded-[4rem] bg-blue-600 text-white hover:bg-blue-700 transition" onclick="window.location.href='/events'">
           <%- include('partials/send-icon') %>
           <span
             class="relative inline-flex overflow-hidden font-general text-xs uppercase group"
@@ -118,8 +140,8 @@
 
 
     <div class="about-subtext text-gray-800 max-w-xl mx-auto text-center">
-      <p>Step into a world where every event becomes an experience worth sharing.</p>
-      <p class="text-gray-500">
+      <p class="md:px-2">Step into a world where every event becomes an experience worth sharing.</p>
+      <p class="text-gray-500 md:px-2">
         Eventoria brings together communities, organizers, and attendees on a single platform 
     to create, explore, and enjoy events like never before.
       </p>
@@ -150,13 +172,13 @@
   </div>
 </section>
 
-<section class="bg-black text-white px-10 pt-10">
-  <h2 class="text-5xl font-circular-web ">Top 10 Trending Events</h2>
+<section class="bg-black text-white">
+  <h2 class="text-5xl font-circular-web mb-5 px-5 pt-10">Top 10 Trending Events</h2>
 
-  <div class="flex space-x-8 overflow-x-auto scrollbar-hide">
+  <div class="flex space-x-8 overflow-x-auto scrollbar-hide border-white/70 border-t-4 border-b-4">
     <% const events = [
-      {rank: 1, title: "Event One", img: "/images/trending1.jpg"},
-      {rank: 2, title: "Event Two", img: "/images/trending2.jpg"},
+      {rank: 1, title: "Festival", img: "/images/trending1.jpg"},
+      {rank: 2, title: "ZEAL 2026", img: "/images/trending2.jpg"},
       {rank: 3, title: "Event Three", img: "/images/trending3.jpg"},
       {rank: 4, title: "Event Four", img: "/images/trending4.jpg"},
       {rank: 5, title: "Event Five", img: "/images/trending5.jpg"},
@@ -166,27 +188,32 @@
       {rank: 9, title: "Event Nine", img: "/images/trending9.jpg"},
       {rank: 10, title: "Event Ten", img: "/images/trending10.jpg"}
     ]; %>
-
+    <div class="px-10 flex flex-none pb-10">
     <% events.forEach(event => { %>
+      <div class=" flex-col px-5 ">
     <div class="flex items-center flex-none">
-      
      <span class="rank-number text-[294px] font-extrabold mr-[-20px] z-0">
   <%= event.rank %>
 </span>
 
      <img src="<%= event.img %>" alt="<%= event.title %>"
      class="relative z-10 w-[170px] shadow-lg border border-white/15">
+     </div>
+     <div>
+     <div class="flex items-end justify-center mt-[-50px] font-bold text-3xl"><%= event.title %></div>
+     </div>
     </div>
     <% }) %>
+    </div>
   </div>
 </section>
 
 <section class="bg-black pb-36">
   <div class="container mx-auto px-3 md:px-10">
     
-    <div class="px-5 py-32">
+    <div class="px-5 py-32 flex items-center justify-center flex-col">
       <p class="font-circular-web text-lg text-blue-50">Into the Event Layer</p>
-      <p class="max-w-md font-circular-web text-lg text-blue-50 opacity-50">
+      <p class="max-w-md font-circular-web text-lg text-blue-50 opacity-50 text-center">
         Immerse yourself in an ever-expanding universe where events converge into unforgettable shared experiences.
       </p>
     </div>
@@ -197,7 +224,7 @@
         <video src="/videos/hero.mp4" loop muted autoplay class="absolute left-0 top-0 size-full object-cover object-center"></video>
         <div class="relative z-10 flex size-full flex-col justify-between p-5 text-blue-50">
           <div>
-            <h1 class="bento-title special-font">Radia<b>n</b>t</h1>
+            <h1 class="bento-title font-zentry special-font text-5xl">Radia<b>n</b>t</h1>
             <p class="mt-3 max-w-64 text-xs md:text-base">Turn your activities into a rewarding adventure.</p>
           </div>
           <div class="hover-btn border-hsla relative flex w-fit cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-white/20 px-5 py-2 text-xs uppercase text-white/80">
@@ -222,7 +249,7 @@
             <video src="<%= f.video %>" loop muted autoplay class="absolute left-0 top-0 size-full object-cover"></video>
             <div class="relative z-10 flex size-full flex-col justify-between p-5 text-blue-50">
               <div>
-                <h1 class="bento-title special-font"><%- f.title %></h1>
+                <h1 class="bento-title font-zentry special-font text-3xl"><%- f.title %></h1>
                 <p class="mt-3 max-w-64 text-xs md:text-base"><%= f.desc %></p>
               </div>
               <div class="hover-btn border-hsla relative flex w-fit cursor-pointer items-center gap-1 rounded-full bg-white/20 px-5 py-2 text-xs uppercase text-white/80">
