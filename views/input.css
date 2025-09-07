@@ -42,3 +42,12 @@ body {
     font-family: "Zentry";
     font-feature-settings: "ss01" on;
   }
+
+  .group:hover .group-hover\:opacity-100 {
+  opacity: 1;
+}
+
+.group-hover\:opacity-100 {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
