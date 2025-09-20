@@ -152,6 +152,16 @@
 
         <div class="flex gap-2 fade-in items-center">
           <input
+            type="email"
+            name="useremail"
+            placeholder="Email Address"
+            required
+            class="flex-1 px-4 py-3 rounded bg-blue-900/50 text-white border border-blue-700 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div class="flex gap-2 fade-in items-center">
+          <input
             type="tel"
             name="userphonenumber"
             placeholder="Phone Number"
@@ -200,41 +210,61 @@
     </div>
 
     <script>
-      const userForm = document.getElementById("userLoginForm");
-      const userOtpSection = document.getElementById("userOtpSection");
-      const userSubmitBtn = document.getElementById("userSubmitButton");
-      const userLoginBox = document.getElementById("user-login-box");
+  const userForm = document.getElementById("userLoginForm");
+  const userOtpSection = document.getElementById("userOtpSection");
+  const userSubmitBtn = document.getElementById("userSubmitButton");
+  const userLoginBox = document.getElementById("user-login-box");
 
-      let userOtpVisible = false;
+  let userOtpVisible = false;
 
-      userSubmitBtn.addEventListener("click", () => {
-        const username = userForm.userusername.value.trim();
-        const phone = userForm.userphonenumber.value.trim();
-        const otpInput = userForm.userotp;
+  userSubmitBtn.addEventListener("click", () => {
+    const username = userForm.userusername.value.trim();
+    const email = userForm.useremail.value.trim();
+    const phone = userForm.userphonenumber.value.trim();
+    const otp = userForm.userotp.value.trim();
 
-        if (!userOtpVisible) {
-          if (!username || !phone) {
-            alert("Please enter both Username and Phone Number.");
-            return;
-          }
+    if (!userOtpVisible) {
+      if (!username || !email || !phone) {
+        alert("Please enter all Fields.");
+        return;
+      }
 
+      fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ userusername: username, useremail: email, userphonenumber: phone })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
           userOtpSection.classList.remove("otp-hidden");
           userOtpSection.classList.add("otp-visible");
-          otpInput.setAttribute("required", "required");
           userOtpVisible = true;
         } else {
-          if (!otpInput.value.trim()) {
-            alert("Please enter the OTP.");
-            return;
-          }
-
-          userLoginBox.classList.add("submit-animate");
-
-          setTimeout(() => {
-            window.location.href = "/home";
-          }, 1300);
+          alert(data.message || "User not found.");
         }
       });
-    </script>
+    } else {
+      if (!otp) {
+        alert("Please enter the OTP.");
+        return;
+      }
+
+      fetch('/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ userotp: otp })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          window.location.href = '/home';
+        } else {
+          alert(data.message || "Invalid OTP");
+        }
+      });
+    }
+  });
+</script>
   </body>
 </html>
