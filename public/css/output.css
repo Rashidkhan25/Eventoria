@@ -620,14 +620,6 @@ video {
   }
 }
 
-.pointer-events-none{
-  pointer-events: none;
-}
-
-.visible{
-  visibility: visible;
-}
-
 .fixed{
   position: fixed;
 }
@@ -655,6 +647,10 @@ video {
 
 .left-8{
   left: 2rem;
+}
+
+.right-0{
+  right: 0px;
 }
 
 .top-0{
@@ -698,10 +694,6 @@ video {
   margin-bottom: 1.25rem;
 }
 
-.mb-5{
-  margin-bottom: 1.25rem;
-}
-
 .mb-6{
   margin-bottom: 1.5rem;
 }
@@ -738,6 +730,10 @@ video {
   margin-top: 3.5rem;
 }
 
+.mt-2{
+  margin-top: 0.5rem;
+}
+
 .mt-3{
   margin-top: 0.75rem;
 }
@@ -760,13 +756,6 @@ video {
 
 .mt-\[-50px\]{
   margin-top: -50px;
-}
-
-.line-clamp-2{
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
 }
 
 .block{
@@ -822,10 +811,6 @@ video {
   height: 14px;
 }
 
-.h-\[30rem\]{
-  height: 30rem;
-}
-
 .h-\[35px\]{
   height: 35px;
 }
@@ -860,14 +845,6 @@ video {
 
 .w-\[170px\]{
   width: 170px;
-}
-
-.w-\[22rem\]{
-  width: 22rem;
-}
-
-.w-\[25rem\]{
-  width: 25rem;
 }
 
 .w-\[35px\]{
@@ -1102,8 +1079,6 @@ video {
 
 .border-b-4{
   border-bottom-width: 4px;
-.border-b-4{
-  border-bottom-width: 4px;
 }
 
 .border-t-4{
@@ -1265,8 +1240,6 @@ video {
   padding-bottom: 1rem;
 }
 
-.pb-10{
-  padding-bottom: 2.5rem;
 .py-8{
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -1315,11 +1288,6 @@ video {
 .text-2xl{
   font-size: 1.5rem;
   line-height: 2rem;
-}
-
-.text-3xl{
-  font-size: 1.875rem;
-  line-height: 2.25rem;
 }
 
 .text-3xl{
@@ -1492,6 +1460,10 @@ video {
 
 .accent-blue-600{
   accent-color: #2563eb;
+}
+
+.opacity-0{
+  opacity: 0;
 }
 
 .opacity-50{
@@ -1687,12 +1659,6 @@ body {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.group:hover .group-hover\:scale-100{
-  --tw-scale-x: 1;
-  --tw-scale-y: 1;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
 .group:hover .group-hover\:opacity-100{
   opacity: 1;
 }
@@ -1737,11 +1703,6 @@ body {
   .md\:px-10{
     padding-left: 2.5rem;
     padding-right: 2.5rem;
-  }
-
-  .md\:px-2{
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
   }
 
   .md\:px-2{

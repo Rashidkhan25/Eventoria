@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>User Login | EventSync</title>
+    <title>User Login | Eventoria</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
@@ -127,7 +127,6 @@
   </head>
 
   <body class="min-h-screen flex items-center justify-center relative">
-      <%- include("partials/navbar") %>
     <div class="background-image"></div>
     <div class="background-blur"></div>
 
@@ -167,7 +166,7 @@
             placeholder="Enter OTP"
             class="fade-in w-full px-4 py-3 rounded bg-blue-900/50 text-white border border-blue-700 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <p class="resend-text">Resend OTP</p>
+          <p class="resend-text" id="resendLoginOtp">Resend OTP</p>
         </div>
 
         <button
@@ -187,8 +186,7 @@
 
         <div class="fade-in flex justify-between items-center text-sm text-blue-300 mt-3">
           <label class="flex items-center">
-            <input type="checkbox" class="mr-2 accent-blue-600" />
-            Remember me
+            <a href="/usersignup" class="hover:underline">Create New Account</a>
           </label>
           <a href="#" class="hover:underline text-blue-400">Need help?</a>
         </div>
@@ -200,60 +198,92 @@
     </div>
 
     <script>
-  const userForm = document.getElementById("userLoginForm");
-  const userOtpSection = document.getElementById("userOtpSection");
-  const userSubmitBtn = document.getElementById("userSubmitButton");
-  const userLoginBox = document.getElementById("user-login-box");
+      const userForm = document.getElementById("userLoginForm");
+      const userOtpSection = document.getElementById("userOtpSection");
+      const userSubmitBtn = document.getElementById("userSubmitButton");
+      const userLoginBox = document.getElementById("user-login-box");
+      const resendLoginBtn = document.getElementById("resendLoginOtp");
 
-  let userOtpVisible = false;
+      let userOtpVisible = false;
 
-  userSubmitBtn.addEventListener("click", () => {
-    const username = userForm.userusername.value.trim();
-    const email = userForm.useremail.value.trim();
-    const otp = userForm.userotp.value.trim();
+      userSubmitBtn.addEventListener("click", () => {
+        const username = userForm.userusername.value.trim();
+        const email = userForm.useremail.value.trim();
+        const otp = userForm.userotp.value.trim();
 
-    if (!userOtpVisible) {
-      if (!username || !email) {
-        alert("Please enter all Fields.");
-        return;
-      }
+        if (!userOtpVisible) {
+          // First step: Send login request to get OTP
+          if (!username || !email) {
+            alert("Please enter all fields.");
+            return;
+          }
 
-      fetch('/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ userusername: username, useremail: email })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          userOtpSection.classList.remove("otp-hidden");
-          userOtpSection.classList.add("otp-visible");
-          userOtpVisible = true;
+          fetch('/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ userusername: username, useremail: email })
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              alert(data.message);
+              userOtpSection.classList.remove("otp-hidden");
+              userOtpSection.classList.add("otp-visible");
+              userOtpVisible = true;
+            } else {
+              alert(data.message || "User not found.");
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            alert("Error connecting to server.");
+          });
         } else {
-          alert(data.message || "User not found.");
+          // Second step: Verify OTP
+          if (!otp) {
+            alert("Please enter the OTP.");
+            return;
+          }
+
+          fetch('/verify-login-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ userotp: otp })
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              alert(data.message);
+              userLoginBox.classList.add("submit-animate");
+              setTimeout(() => {
+                window.location.href = '/home';
+              }, 1200);
+            } else {
+              alert(data.message || "Invalid OTP");
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            alert("Error verifying OTP.");
+          });
         }
       });
-    } else {
-      if (!otp) {
-        alert("Please enter the OTP.");
-        return;
-      }
 
-      fetch('/verify-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ userotp: otp })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          window.location.href = '/home';
-        } else {
-          alert(data.message || "Invalid OTP");
-        }
+      // Resend OTP functionality
+      resendLoginBtn.addEventListener("click", () => {
+        fetch('/resend-login-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+        .then(res => res.json())
+        .then(data => {
+          alert(data.message);
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Error resending OTP.");
+        });
       });
-    }
-  });
-</script>
+    </script>
   </body>
 </html>
