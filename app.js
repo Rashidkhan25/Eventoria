@@ -7,7 +7,7 @@ require("dotenv").config();
 const User = require("./models/User");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const {
   upcomingEvents,
@@ -44,11 +44,13 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Nodemailer transporter
 const transporter = nodemailer.createTransport({
-  service: "gmail", 
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true, 
   auth: {
-    user: process.env.EMAIL_USER, 
-    pass: process.env.EMAIL_PASS, 
-  },
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
 });
 
 // Page routes
@@ -97,7 +99,7 @@ app.post("/signup", async (req, res) => {
     return res.json({ success: true, message: "OTP sent to email." });
   } catch (err) {
     console.error(err);
-    res.json({ success: false, message: "Error processing signup." });
+      res.json({ success: false, message: err.message }); 
   }
 });
 
