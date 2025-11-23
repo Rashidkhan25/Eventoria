@@ -50,29 +50,34 @@
 
     .slide-info {
       position: absolute;
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgba(0, 0, 0, 0);
+      transition: background-color 0.5s ease-in-out;
       bottom: 7rem;
       left: 4rem;
-      padding: 2rem 2.5rem;
+      padding: 1.5rem;
       border-radius: 0.75rem;
       max-width: 45%;
     }
 
+    .slide-info.show {
+      background-color: rgba(0, 0, 0, 0.45);
+    }
+
     .slide-info h2 {
-      font-size: 4rem;
+      font-size: 4.3rem;
       font-weight: bold;
       padding-bottom: 1rem;
     }
 
     .slide-info p {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
     }
 
     /* Hide scrollbar */
     .scrollbar-hide::-webkit-scrollbar { display: none; }
     .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* Movie card containers */
+    /* Movie rows */
     .movie-card-container {
       position: relative;
       display: flex;
@@ -85,14 +90,11 @@
     }
 
     .movie-card {
-      position: relative;
       flex: 0 0 auto;
       width: 18rem;
-      height: 12rem;
-      border-radius: 0.75rem;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      overflow: hidden;
+      transition: transform 0.4s ease;
       cursor: pointer;
+      position: relative;
     }
 
     .movie-card:hover {
@@ -100,198 +102,246 @@
       z-index: 10;
     }
 
-    .movie-card-details {
+    /* Overlay only on image */
+    .movie-card .overlay {
       position: absolute;
-      bottom: 0;
+      bottom: 5.7rem;
       left: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.8);
+      width: 100%;
+      background: rgba(0, 0, 0, 0.66);
       color: white;
-      padding: 0.75rem;
-      transform: translateY(100%);
+      font-size: 0.8rem;
+      padding: 0.2rem;
       opacity: 0;
+      transform: translateY(100%);
       transition: all 0.3s ease;
+      border-bottom-left-radius: 0.75rem;
+      border-bottom-right-radius: 0.75rem;
+      text-align:left;
     }
 
-    .movie-card:hover .movie-card-details {
-      transform: translateY(0);
+    .movie-card:hover .overlay {
       opacity: 1;
+      transform: translateY(0);
+    }
+
+    .movie-title {
+      margin-top: 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-align: center;
+      transition: transform 0.4s ease;
+    }
+
+    @font-face {
+      font-family: "general";
+      src: url("/fonts/GeneralSans-Medium.woff2") format("woff2");
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Circular Web';
+      src: url('/fonts/circularweb-book.woff2') format('woff2');
+      font-weight: 500;
+      font-style: normal;
     }
   </style>
+
 </head>
 
 <body class="bg-black text-white font-sans overflow-x-hidden">
 
-  <!-- Navbar -->
   <%- include("partials/navbar") %>
 
-  <!-- Hero Slider -->
+  <!-- HERO SLIDER -->
   <header class="relative h-100%">
     <div id="slider-container">
       <div id="slider">
+
         <div class="slide">
-          <video class="w-full h-full object-cover" autoplay muted loop>
+          <video class="w-full h-full object-cover" loop muted>
             <source src="/videos/hero2.mp4" type="video/mp4">
           </video>
           <div class="slide-info">
-            <h2>Event 1</h2>
-            <p>Exciting adventure with thrilling moments and an amazing story.</p>
+            <h2 class="font-general">Event 1</h2>
+            <p>Join us for an unforgettable journey filled with excitement, breathtaking moments, and a story that will keep you on the edge of your seat.
+            </p>
           </div>
         </div>
 
         <div class="slide">
-          <video class="w-full h-full object-cover" autoplay muted loop>
+          <video class="w-full h-full object-cover" loop muted>
             <source src="/videos/hero.mp4" type="video/mp4">
           </video>
           <div class="slide-info">
-            <h2>Event 2</h2>
-            <p>Action-packed journey through mysteries and discoveries.</p>
+            <h2 class="font-general">Event 2</h2>
+            <p>Dive into a thrilling experience full of action, unexpected twists, and discoveries that will leave you amazed.</p>
           </div>
         </div>
 
         <div class="slide">
-          <video class="w-full h-full object-cover" autoplay muted loop>
+          <video class="w-full h-full object-cover" loop muted>
             <source src="/videos/hero2.mp4" type="video/mp4">
           </video>
           <div class="slide-info">
-            <h2>Event 3</h2>
-            <p>Heartwarming story filled with emotion and stunning visuals.</p>
+            <h2 class="font-general">Event 3</h2>
+            <p>Experience a touching tale that tugs at your heartstrings, complemented by breathtaking visuals and unforgettable moments.</p>
           </div>
         </div>
 
         <div class="slide">
-          <video class="w-full h-full object-cover" autoplay muted loop>
+          <video class="w-full h-full object-cover" loop muted>
             <source src="/videos/hero3.mp4" type="video/mp4">
           </video>
           <div class="slide-info">
-            <h2>Event 4</h2>
-            <p>A cinematic experience beyond imagination.</p>
+            <h2 class="font-general">Event 4</h2>
+            <p>Step into a world of awe-inspiring storytelling and visuals, where every scene takes you on a journey beyond your imagination.</p>
           </div>
         </div>
+
       </div>
     </div>
   </header>
 
-  <!-- Movie Rows -->
+  <!-- MOVIE ROWS -->
   <section class="mt-8 px-8 space-y-12">
 
-    <!-- Trending Now -->
+    <!-- TRENDING NOW -->
     <div>
-      <h2 class="text-3xl ml-[4rem] mb-2 font-bold">Trending Now</h2>
+      <h2 class="text-3xl ml-[4rem] mb-2 font-bold font-circular-web">Trending Now</h2>
       <div class="movie-card-container">
-        <div class="movie-card">
-          <img src="images/contactUsbg.jpg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">Trending Event 1 </div>
+        <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/contactUsbg.jpg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">Exciting adventure with thrilling moments and amazing story.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Trending Event 1</p>
         </div>
 
-        <div class="movie-card">
-          <img src="images/loading1.jpeg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">Trending Event 2 </div>
+        <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/loading1.jpeg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">Action-packed journey through mysteries and discoveries.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Trending Event 2</p>
         </div>
 
-        <div class="movie-card">
-          <img src="images/loading2.jpeg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">Trending Event 3</div>
+        <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/loading2.jpeg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">Heartwarming story filled with emotion and stunning visuals.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Trending Event 3</p>
         </div>
 
-        <div class="movie-card">
-          <img src="images/loading3.jpeg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">Trending Event 4 </div>
+        <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/loading3.jpeg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">A cinematic experience beyond imagination.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Trending Event 4</p>
         </div>
 
-        <div class="movie-card">
-          <img src="images/loading4.jpeg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">Trending Event 5 </div>
-        </div>
-
-        <div class="movie-card">
-          <img src="images/loading4.jpeg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">Trending Event 5</div>
+        <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/loading4.jpeg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">Don't miss this amazing experience.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Trending Event 5</p>
         </div>
       </div>
     </div>
 
-    <!-- Top Picks -->
+    <!-- TOP PICKS -->
     <div>
-      <h2 class="text-3xl ml-[4rem] mb-2 font-bold">Top Picks For You</h2>
+      <h2 class="text-3xl ml-[4rem] mb-2 font-bold font-circular-web">Top Picks For You</h2>
       <div class="movie-card-container">
-        <div class="movie-card">
-          <img src="images/loading1.jpeg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">Top Pick 1 </div>
+        <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/loading1.jpeg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">Exciting adventure with thrilling moments and amazing story.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Top Pick 1</p>
         </div>
 
-        <div class="movie-card">
-          <img src="images/loading2.jpeg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">Top Pick 2 </div>
+        <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/loading2.jpeg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">Action-packed journey through mysteries and discoveries.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Top Pick 2</p>
         </div>
 
-        <div class="movie-card">
-          <img src="images/loading3.jpeg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">Top Pick 3 </div>
+        <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/loading3.jpeg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">Heartwarming story filled with emotion and stunning visuals.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Top Pick 3</p>
         </div>
 
-        <div class="movie-card">
-          <img src="images/loading4.jpeg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">Top Pick 4 </div>
+         <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/loading2.jpeg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">Heartwarming story filled with emotion and stunning visuals.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Top Pick 3</p>
         </div>
 
-         <div class="movie-card">
-          <img src="images/loading4.jpeg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">Top Pick 4 </div>
+         <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/loading4.jpeg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">Heartwarming story filled with emotion and stunning visuals.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Top Pick 3</p>
         </div>
 
-         <div class="movie-card">
-          <img src="images/loading4.jpeg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">Top Pick 4</div>
+        <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/loading1.jpeg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">A cinematic experience beyond imagination.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Top Pick 4</p>
         </div>
       </div>
     </div>
 
-    <!-- New Releases -->
+    <!-- NEW RELEASES -->
     <div>
-      <h2 class="text-3xl ml-[4rem] mb-2 font-bold">New Releases</h2>
+      <h2 class="text-3xl ml-[4rem] mb-2 font-bold font-circular-web">New Releases</h2>
       <div class="movie-card-container">
-        <div class="movie-card">
-          <img src="images/loading1.jpeg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">New Release 1 </div>
+        <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/loading1.jpeg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">Exciting adventure with thrilling moments and amazing story.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">New Release 1</p>
         </div>
 
-        <div class="movie-card">
-          <img src="images/loading2.jpeg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">New Release 2 </div>
+        <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/loading2.jpeg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">Action-packed journey through mysteries and discoveries.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">New Release 2</p>
         </div>
 
-        <div class="movie-card">
-          <img src="images/loading3.jpeg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">New Release 3 </div>
+        <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/loading3.jpeg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">Heartwarming story filled with emotion and stunning visuals.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">New Release 3</p>
         </div>
 
-        <div class="movie-card">
-          <img src="images/loading4.jpeg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">New Release 4 </div>
+        <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/loading4.jpeg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">A cinematic experience beyond imagination.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">New Release 4</p>
         </div>
 
-        <div class="movie-card">
-          <img src="images/loading4.jpeg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">New Release 4 </div>
+        <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/loading1.jpeg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">A cinematic experience beyond imagination.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">New Release 4</p>
         </div>
 
-        <div class="movie-card">
-          <img src="images/loading4.jpeg" class="w-full h-full object-cover rounded">
-          <div class="movie-card-details">New Release 4 </div>
+        <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/loading2.jpeg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">A cinematic experience beyond imagination.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">New Release 4</p>
+        </div>
+        <div class="movie-card rounded-xl overflow-hidden relative">
+          <img src="images/loading3.jpeg" class="w-full h-40 object-cover rounded-xl">
+          <div class="overlay">A cinematic experience beyond imagination.</div>
+          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">New Release 4</p>
         </div>
       </div>
     </div>
+
   </section>
 
-  <!-- Footer -->
   <footer class="text-white p-6 mt-12 text-center">
     <p>© 2025 Eventoria. All rights reserved.</p>
   </footer>
 
-  <!-- Infinite Loop JS -->
+  <!-- WORKING SLIDER + VIDEO HOVER SCRIPT -->
   <script>
-    const slider = document.getElementById('slider');
+    /* ---- SLIDER ---- */
+    const slider = document.getElementById("slider");
     const slides = Array.from(slider.children);
     const slideCount = slides.length;
 
@@ -300,22 +350,55 @@
 
     let index = 0;
     const slideWidth = window.innerWidth;
+    let sliderInterval;
+
+    function startSlider() {
+      sliderInterval = setInterval(nextSlide, 4000);
+    }
+
+    function stopSlider() {
+      clearInterval(sliderInterval);
+    }
 
     function nextSlide() {
       index++;
-      slider.style.transition = 'transform 1s ease-in-out';
+      slider.style.transition = "transform 1s ease-in-out";
       slider.style.transform = `translateX(-${index * slideWidth}px)`;
 
       if (index === slideCount) {
         setTimeout(() => {
-          slider.style.transition = 'none';
-          slider.style.transform = 'translateX(0)';
+          slider.style.transition = "none";
+          slider.style.transform = "translateX(0)";
           index = 0;
         }, 1000);
       }
     }
 
-    setInterval(nextSlide, 4000);
+    startSlider();
+
+    /* ---- VIDEO HOVER ---- */
+    const videos = document.querySelectorAll(".slide video");
+
+    videos.forEach(video => {
+      const slideInfo = video.parentElement.querySelector(".slide-info");
+
+      video.pause();
+      video.currentTime = 0;
+
+      video.parentElement.addEventListener("mouseenter", () => {
+        stopSlider();
+        video.currentTime = 0;
+        video.play();
+        slideInfo.classList.add("show");
+      });
+
+      video.parentElement.addEventListener("mouseleave", () => {
+        video.pause();
+        video.currentTime = 0;
+        slideInfo.classList.remove("show");
+        startSlider();
+      });
+    });
   </script>
 
   <script src="/js/navbar.js"></script>
