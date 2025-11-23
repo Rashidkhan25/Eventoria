@@ -54,28 +54,6 @@
     }
   }
 
-  .bento-tilt {
-  box-shadow: none;
-  }
-
-  .bento-tilt:hover{
-    position: relative;
-    transition: box-shadow 0.3s ease;
-  }
-
-.bento-tilt.glow-right {
-  box-shadow: 7px 0px 25px 5px rgb(0 130 255 / 80%);
-}
-.bento-tilt.glow-left {
-  box-shadow: -7px 0 25px 5px rgba(255, 0, 200, 0.8);
-}
-.bento-tilt.glow-top {
-  box-shadow: 0 -10px 25px rgba(0, 200, 255, 0.8);
-}
-.bento-tilt.glow-bottom {
-  box-shadow: 0 10px 25px rgba(0, 200, 255, 0.8);
-}
-
 </style>
 <body>
   <%- include("partials/navbar") %>
@@ -164,7 +142,7 @@
   </div>
 
   <audio id="zoomAudio" src="/audio/concert.mp3"></audio>
-  <!-- ✅ Clip Animation Area -->
+  <!-- Clip Animation Area -->
   <div class="h-[100vh] w-screen mt-14 md:mt-20" id="clip">
     <div class="mask-clip-path about-image">
       <img src="/images/contactUsbg.jpg" alt="Background" class="absolute left-0 top-0 w-full h-full object-cover" />
@@ -219,7 +197,7 @@
     </div>
 
     <!-- Main Feature Card -->
-    <div class="bento-tilt border-hsla relative mb-7 h-64 w-full overflow-hidden rounded-md md:h-[65vh]">
+    <div class="bento-tilt border-hsla relative mb-7 h-64 w-full overflow-hidden rounded-md md:h-[65vh] shadow-[0_0_13px_2px_#ffffff6b]">
       <div class="bento-card relative size-full">
         <video src="/videos/hero.mp4" loop muted autoplay class="absolute left-0 top-0 size-full object-cover object-center"></video>
         <div class="relative z-10 flex size-full flex-col justify-between p-5 text-blue-50">
@@ -244,7 +222,7 @@
       ]; %>
 
       <% features.forEach(f => { %>
-        <div class="bento-tilt relative overflow-hidden rounded-md bg-black">
+        <div class="bento-tilt relative overflow-hidden rounded-md bg-black ">
           <div class="bento-card relative size-full">
             <video src="<%= f.video %>" loop muted autoplay class="absolute left-0 top-0 size-full object-cover"></video>
             <div class="relative z-10 flex size-full flex-col justify-between p-5 text-blue-50">
