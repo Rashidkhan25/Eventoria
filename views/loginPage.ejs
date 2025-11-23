@@ -3,287 +3,197 @@
   <head>
     <meta charset="UTF-8" />
     <title>Eventoria | User Login</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
     <style>
-      body {
-        font-family: 'Inter', sans-serif;
-      }
+      body { font-family: 'Inter', sans-serif; }
 
       .background-image {
         background: url('/images/back.png') no-repeat center center;
         background-size: cover;
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 100vw;
-        z-index: -2;
+        position: fixed; top: 0; left: 0;
+        height: 100vh; width: 100vw; z-index: -2;
       }
 
       .background-blur {
         backdrop-filter: blur(2px);
-        -webkit-backdrop-filter: blur(6px);
         background-color: rgba(0, 0, 0, 0.4);
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 100vw;
-        z-index: -1;
+        position: fixed; top: 0; left: 0;
+        height: 100vh; width: 100vw; z-index: -1;
       }
 
       @keyframes loginFade {
-        0% {
-          opacity: 0;
-          transform: scale(0.8) translateY(50px);
-        }
-        100% {
-          opacity: 1;
-          transform: scale(1) translateY(0);
-        }
+        from { opacity: 0; transform: scale(0.8) translateY(50px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
       }
-
-      .login-animate {
-        animation: loginFade 1s ease-out forwards;
-      }
-
-      .fade-in {
-        animation: fadeIn 1s ease-in-out forwards;
-        opacity: 0;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
+      .login-animate { animation: loginFade 1s ease-out forwards; }
 
       @keyframes crazyExit {
-        0% {
-          transform: perspective(800px) rotateY(0deg) scale(1);
-          opacity: 1;
-        }
-        50% {
-          transform: perspective(800px) rotateY(90deg) scale(1.2);
-          opacity: 0.6;
-        }
-        100% {
-          transform: perspective(800px) rotateY(180deg) scale(0.3);
-          opacity: 0;
-        }
+        0% { transform: perspective(800px) rotateY(0) scale(1); opacity: 1; }
+        50% { transform: perspective(800px) rotateY(90deg) scale(1.2); opacity: 0.6; }
+        100% { transform: perspective(800px) rotateY(180deg) scale(0.3); opacity: 0; }
       }
-
-      .submit-animate {
-        animation: crazyExit 1.2s ease-in-out forwards;
-        transform-origin: center;
-      }
+      .submit-animate { animation: crazyExit 1.2s ease-in-out forwards; }
 
       .close-btn {
-        position: absolute;
-        top: 1rem;
-        right: 2rem;
-        font-size: 1.75rem;
-        color: white;
+        position: absolute; top: 1rem; right: 2rem;
+        font-size: 1.75rem; color: white;
+        border: none; cursor: pointer; z-index: 20;
         background: transparent;
-        border: none;
-        cursor: pointer;
-        transition: color 0.2s ease, transform 0.2s ease;
-        z-index: 20;
+      }
+      .close-btn:hover { color: #3b82f6; transform: scale(1.2); }
+
+      .input-field {
+        width:100%;
+        padding:0.75rem 1rem;
+        border-radius:0.5rem;
+        background: rgba(13,42,69,0.45);
+        border:1px solid rgba(99,102,241,0.08);
+        color:white;
       }
 
-      .close-btn:hover {
-        color: #3b82f6;
-        transform: scale(1.2);
-      }
-
-      .otp-hidden {
-        display: none;
-      }
-
-      .otp-visible {
-        display: block;
-        animation: fadeIn 0.5s ease-out;
-      }
-
-      .resend-text {
-        font-size: 0.75rem;
-        color: #93c5fd;
-        text-align: right;
-        margin-top: 0.25rem;
-        cursor: pointer;
-      }
-
-      .resend-text:hover {
-        text-decoration: underline;
+      .google-btn {
+        display:flex; align-items:center; justify-content:center; gap:8px;
+        background:white; color:black; padding:10px; border-radius:999px;
+        width:100%; cursor:pointer; font-weight:600;
       }
     </style>
   </head>
 
   <body class="min-h-screen flex items-center justify-center relative">
+
     <div class="background-image"></div>
     <div class="background-blur"></div>
 
     <div
-      class="relative bg-black/60 backdrop-blur-lg p-10 rounded-md shadow-2xl border border-blue-700 w-full max-w-md text-white z-10 login-animate"
+      class="relative bg-black/60 backdrop-blur-lg p-10 rounded-md shadow-2xl border border-blue-700 
+             w-full max-w-md text-white login-animate"
       id="user-login-box"
     >
-      <button class="close-btn" onclick="window.location.href='/home'" aria-label="Go back to home" title="Go back to home">
-        &times;
-      </button>
+      <button class="close-btn" onclick="window.location.href='/home'">&times;</button>
 
       <h2 class="text-4xl font-extrabold mb-6 text-center tracking-wide">User Login</h2>
 
       <form id="userLoginForm" class="space-y-5">
+
         <input
-          type="text"
-          name="userusername"
-          placeholder="Username"
+          type="email"
+          name="useremail"
+          placeholder="Email Address"
           required
-          class="fade-in w-full px-4 py-3 rounded bg-blue-900/50 text-white border border-blue-700 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="input-field"
         />
 
-        <div class="flex gap-2 fade-in items-center">
-          <input
-            type="email"
-            name="useremail"
-            placeholder="Email Address"
-            required
-            class="flex-1 px-4 py-3 rounded bg-blue-900/50 text-white border border-blue-700 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        <div id="userOtpSection" class="otp-hidden">
-          <input
-            type="text"
-            name="userotp"
-            placeholder="Enter OTP"
-            class="fade-in w-full px-4 py-3 rounded bg-blue-900/50 text-white border border-blue-700 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <p class="resend-text" id="resendLoginOtp">Resend OTP</p>
-        </div>
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+          class="input-field"
+        />
 
         <button
           id="userSubmitButton"
           type="button"
-          class="px-4 py-2 bg-blue-700 text-white rounded-[2.5rem] hover:bg-blue-700 transition font-circular-web w-full"
+          class="px-4 py-2 bg-blue-700 text-white rounded-[2.5rem] 
+                 hover:bg-blue-600 transition w-full"
         >
-          <span class="relative inline-flex overflow-hidden group w-full justify-center">
-            <span class="translate-y-0 skew-y-0 transition duration-500 group-hover:-translate-y-[120%] group-hover:skew-y-12">
-              Submit
-            </span>
-            <span class="absolute translate-y-[124%] skew-y-12 transition duration-500 group-hover:translate-y-0 group-hover:skew-y-0">
-              Submit
-            </span>
-          </span>
+          <span>Login</span>
         </button>
 
-        <div class="fade-in flex justify-between items-center text-sm text-blue-300 mt-3">
-          <label class="flex items-center">
-            <a href="/usersignup" class="hover:underline">Create New Account</a>
-          </label>
-          <a href="#" class="hover:underline text-blue-400">Need help?</a>
+        <div class="flex items-center gap-3">
+          <div class="h-px bg-white/10 flex-1"></div>
+          <p class="text-sm text-blue-300">or</p>
+          <div class="h-px bg-white/10 flex-1"></div>
         </div>
+
+        <button id="googleLogin" type="button" class="google-btn">
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="20" />
+          Login with Google
+        </button>
+
+        <div class="text-sm text-blue-300 mt-3 text-center">
+          <a href="/usersignup" class="hover:underline">Create New Account</a>
+        </div>
+
       </form>
 
-      <div class="mt-8 text-sm text-blue-300 fade-in text-center">
+      <div class="mt-8 text-sm text-blue-300 text-center">
         <a href="/hostlogin" class="text-blue-400 font-medium hover:underline">Are you a Host?</a>
       </div>
     </div>
 
-    <script>
-      const userForm = document.getElementById("userLoginForm");
-      const userOtpSection = document.getElementById("userOtpSection");
-      const userSubmitBtn = document.getElementById("userSubmitButton");
-      const userLoginBox = document.getElementById("user-login-box");
-      const resendLoginBtn = document.getElementById("resendLoginOtp");
+    <!-- Firebase Login -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+        GoogleAuthProvider,
+        signInWithPopup
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-      let userOtpVisible = false;
+      const firebaseConfig = {
+        apiKey: "AIzaSyCgQhUe2F6T59chhkPDHZ0QgjPJpe6Pz_0",
+        authDomain: "eventoria-9da08.firebaseapp.com",
+        projectId: "eventoria-9da08",
+        storageBucket: "eventoria-9da08.firebasestorage.app",
+        messagingSenderId: "1081916400444",
+        appId: "1:1081916400444:web:f28cd875473e04b5bd3439"
+      };
 
-      userSubmitBtn.addEventListener("click", () => {
-        const username = userForm.userusername.value.trim();
-        const email = userForm.useremail.value.trim();
-        const otp = userForm.userotp.value.trim();
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const provider = new GoogleAuthProvider();
 
-        if (!userOtpVisible) {
-          // First step: Send login request to get OTP
-          if (!username || !email) {
-            alert("Please enter all fields.");
-            return;
-          }
+      async function sendIdTokenToServer(idToken) {
+        await fetch("/sessionLogin", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ idToken })
+        });
+      }
 
-          fetch('/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({ userusername: username, useremail: email })
-          })
-          .then(res => res.json())
-          .then(data => {
-            if (data.success) {
-              alert(data.message);
-              userOtpSection.classList.remove("otp-hidden");
-              userOtpSection.classList.add("otp-visible");
-              userOtpVisible = true;
-            } else {
-              alert(data.message || "User not found.");
-            }
-          })
-          .catch(err => {
-            console.error(err);
-            alert("Error connecting to server.");
-          });
-        } else {
-          // Second step: Verify OTP
-          if (!otp) {
-            alert("Please enter the OTP.");
-            return;
-          }
+      // EMAIL + PASSWORD LOGIN
+      document.getElementById("userSubmitButton").addEventListener("click", async () => {
+        const email = document.querySelector("input[name='useremail']").value.trim();
+        const password = document.querySelector("input[name='password']").value;
 
-          fetch('/verify-login-otp', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({ userotp: otp })
-          })
-          .then(res => res.json())
-          .then(data => {
-            if (data.success) {
-              alert(data.message);
-              userLoginBox.classList.add("submit-animate");
-              setTimeout(() => {
-                window.location.href = '/home';
-              }, 1200);
-            } else {
-              alert(data.message || "Invalid OTP");
-            }
-          })
-          .catch(err => {
-            console.error(err);
-            alert("Error verifying OTP.");
-          });
+        if (!email || !password) return alert("Enter all fields");
+
+        try {
+          const userCred = await signInWithEmailAndPassword(auth, email, password);
+          const idToken = await userCred.user.getIdToken();
+          await sendIdTokenToServer(idToken);
+
+          document.getElementById("user-login-box").classList.add("submit-animate");
+          setTimeout(() => window.location.href = "/home", 900);
+
+        } catch (err) {
+          alert(err.message);
         }
       });
 
-      // Resend OTP functionality
-      resendLoginBtn.addEventListener("click", () => {
-        fetch('/resend-login-otp', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-        })
-        .then(res => res.json())
-        .then(data => {
-          alert(data.message);
-        })
-        .catch(err => {
+      // GOOGLE LOGIN
+      document.getElementById("googleLogin").addEventListener("click", async () => {
+        try {
+          const result = await signInWithPopup(auth, provider);
+          const idToken = await result.user.getIdToken();
+          await sendIdTokenToServer(idToken);
+
+          document.getElementById("user-login-box").classList.add("submit-animate");
+          setTimeout(() => window.location.href = "/home", 900);
+
+        } catch (err) {
           console.error(err);
-          alert("Error resending OTP.");
-        });
+          alert("Google login failed");
+        }
       });
     </script>
+
   </body>
 </html>
