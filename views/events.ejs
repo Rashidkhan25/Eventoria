@@ -1,14 +1,26 @@
-<! <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eventoria | Events</title>
   <script src="https://cdn.tailwindcss.com"></script>
-   <link rel="stylesheet" href="/css/output.css">
+  <link rel="stylesheet" href="/css/output.css">
   <link rel="stylesheet" href="/css/styles.css">
+
   <style>
     /* Slider container */
+    #slider-container::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 15vh;
+      background: linear-gradient(to bottom, rgba(0,0,0,0), black);
+      pointer-events: none;
+    }
+
     #slider-container {
       overflow: hidden;
       position: relative;
@@ -19,7 +31,6 @@
       transition: transform 1s ease-in-out;
     }
 
-    /* Each slide */
     .slide {
       min-width: 100vw;
       height: 80vh;
@@ -28,109 +39,250 @@
       position: relative;
     }
 
-    /* Info box on bottom-left */
-    .slide-info {
+    .slide::after {
+      content: '';
       position: absolute;
-      bottom: 2rem;
-      left: 2rem;
-      background: rgba(0,0,0,0.6);
-      padding: 1rem 1.5rem;
-      border-radius: 0.5rem;
-      max-width: 400px;
+      bottom: 0;
+      width: 100%;
+      height: 20%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0), black);
     }
 
-    /* Hide horizontal scrollbar for movie rows */
+    .slide-info {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.4);
+      bottom: 7rem;
+      left: 4rem;
+      padding: 2rem 2.5rem;
+      border-radius: 0.75rem;
+      max-width: 45%;
+    }
+
+    .slide-info h2 {
+      font-size: 4rem;
+      font-weight: bold;
+      padding-bottom: 1rem;
+    }
+
+    .slide-info p {
+      font-size: 1.25rem;
+    }
+
+    /* Hide scrollbar */
     .scrollbar-hide::-webkit-scrollbar { display: none; }
     .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Movie card containers */
+    .movie-card-container {
+      position: relative;
+      display: flex;
+      overflow-x: auto;
+      gap: 2rem;
+      padding-top: 3rem;
+      padding-left: 4rem;
+      scrollbar-width: none;
+      height: 300px;
+    }
+
+    .movie-card {
+      position: relative;
+      flex: 0 0 auto;
+      width: 18rem;
+      height: 12rem;
+      border-radius: 0.75rem;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .movie-card:hover {
+      transform: scale(1.4);
+      z-index: 10;
+    }
+
+    .movie-card-details {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.75rem;
+      transform: translateY(100%);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .movie-card:hover .movie-card-details {
+      transform: translateY(0);
+      opacity: 1;
+    }
   </style>
 </head>
+
 <body class="bg-black text-white font-sans overflow-x-hidden">
 
   <!-- Navbar -->
   <%- include("partials/navbar") %>
+
   <!-- Hero Slider -->
-  <header class="relative h-100% ">
+  <header class="relative h-100%">
     <div id="slider-container">
       <div id="slider">
-        <div class="slide" style="background-image: url('/images/loading1.jpeg');">
+        <div class="slide">
+          <video class="w-full h-full object-cover" autoplay muted loop>
+            <source src="/videos/hero2.mp4" type="video/mp4">
+          </video>
           <div class="slide-info">
-            <h2 class="text-2xl font-bold">Movie Title 1</h2>
-            <p class="text-sm">Exciting adventure with thrilling moments and an amazing story.</p>
+            <h2>Event 1</h2>
+            <p>Exciting adventure with thrilling moments and an amazing story.</p>
           </div>
         </div>
-        <div class="slide" style="background-image: url('/images/loading2.jpeg');">
+
+        <div class="slide">
+          <video class="w-full h-full object-cover" autoplay muted loop>
+            <source src="/videos/hero.mp4" type="video/mp4">
+          </video>
           <div class="slide-info">
-            <h2 class="text-2xl font-bold">Movie Title 2</h2>
-            <p class="text-sm">A gripping tale of friendship and courage in a mysterious world.</p>
+            <h2>Event 2</h2>
+            <p>Action-packed journey through mysteries and discoveries.</p>
           </div>
         </div>
-        <div class="slide" style="background-image: url('/images/loading3.jpeg');">
+
+        <div class="slide">
+          <video class="w-full h-full object-cover" autoplay muted loop>
+            <source src="/videos/hero2.mp4" type="video/mp4">
+          </video>
           <div class="slide-info">
-            <h2 class="text-2xl font-bold">Movie Title 3</h2>
-            <p class="text-sm">An emotional rollercoaster that will keep you on the edge of your seat.</p>
+            <h2>Event 3</h2>
+            <p>Heartwarming story filled with emotion and stunning visuals.</p>
           </div>
         </div>
-        <div class="slide" style="background-image: url('/images/loading4.jpeg');">
+
+        <div class="slide">
+          <video class="w-full h-full object-cover" autoplay muted loop>
+            <source src="/videos/hero3.mp4" type="video/mp4">
+          </video>
           <div class="slide-info">
-            <h2 class="text-2xl font-bold">Movie Title 4</h2>
-            <p class="text-sm">A story of love, betrayal, and unexpected twists that captivate.</p>
+            <h2>Event 4</h2>
+            <p>A cinematic experience beyond imagination.</p>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-<!-- Movie Rows -->
-<section class="mt-8 px-8 space-y-12">
+  <!-- Movie Rows -->
+  <section class="mt-8 px-8 space-y-12">
 
-  <!-- Trending Now -->
-  <div>
-    <h2 class="text-2xl mb-2">Trending Now</h2>
-    <div class="flex overflow-x-scroll scrollbar-hide space-x-8">
-      <img src="https://i.imgur.com/OH6x4Zi.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/X5n5KZf.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/MeM0VvZ.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/GtF7ptp.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/0u4wZQl.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/6b8c5Ym.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/NxMk3kR.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/rfA8f1T.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/3JgqUoL.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/7X1Qe4A.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
+    <!-- Trending Now -->
+    <div>
+      <h2 class="text-3xl ml-[4rem] mb-2 font-bold">Trending Now</h2>
+      <div class="movie-card-container">
+        <div class="movie-card">
+          <img src="images/contactUsbg.jpg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">Trending Event 1 </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="images/loading1.jpeg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">Trending Event 2 </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="images/loading2.jpeg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">Trending Event 3</div>
+        </div>
+
+        <div class="movie-card">
+          <img src="images/loading3.jpeg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">Trending Event 4 </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="images/loading4.jpeg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">Trending Event 5 </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="images/loading4.jpeg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">Trending Event 5</div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- Top Picks -->
-  <div>
-    <h2 class="text-2xl mb-2">Top Picks For You</h2>
-    <div class="flex overflow-x-scroll scrollbar-hide space-x-8">
-      <img src="https://i.imgur.com/5rPp4Ab.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/Uc0VgUd.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/E9MbS9i.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/q2HnKjf.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/KfYyPml.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/sohM7k5.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/OD1iGgP.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/3yYke7J.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
+    <!-- Top Picks -->
+    <div>
+      <h2 class="text-3xl ml-[4rem] mb-2 font-bold">Top Picks For You</h2>
+      <div class="movie-card-container">
+        <div class="movie-card">
+          <img src="images/loading1.jpeg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">Top Pick 1 </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="images/loading2.jpeg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">Top Pick 2 </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="images/loading3.jpeg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">Top Pick 3 </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="images/loading4.jpeg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">Top Pick 4 </div>
+        </div>
+
+         <div class="movie-card">
+          <img src="images/loading4.jpeg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">Top Pick 4 </div>
+        </div>
+
+         <div class="movie-card">
+          <img src="images/loading4.jpeg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">Top Pick 4</div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- New Releases -->
-  <div>
-    <h2 class="text-2xl mb-2">New Releases</h2>
-    <div class="flex overflow-x-scroll scrollbar-hide space-x-8">
-      <img src="https://i.imgur.com/9qH7K7l.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/ak6yI3G.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/hB6Nf1p.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/PtVwRmY.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/Li1Rk9G.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/V6xA6kZ.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/W5sK8ZT.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
-      <img src="https://i.imgur.com/yT7fT3n.jpg" class="w-72 h-48 rounded hover:scale-105 transition-transform duration-300">
+    <!-- New Releases -->
+    <div>
+      <h2 class="text-3xl ml-[4rem] mb-2 font-bold">New Releases</h2>
+      <div class="movie-card-container">
+        <div class="movie-card">
+          <img src="images/loading1.jpeg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">New Release 1 </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="images/loading2.jpeg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">New Release 2 </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="images/loading3.jpeg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">New Release 3 </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="images/loading4.jpeg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">New Release 4 </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="images/loading4.jpeg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">New Release 4 </div>
+        </div>
+
+        <div class="movie-card">
+          <img src="images/loading4.jpeg" class="w-full h-full object-cover rounded">
+          <div class="movie-card-details">New Release 4 </div>
+        </div>
+      </div>
     </div>
-  </div>
-
-</section>
+  </section>
 
   <!-- Footer -->
   <footer class="bg-gray-900 text-gray-400 px-8 py-8 mt-12 text-center">
@@ -143,7 +295,6 @@
     const slides = Array.from(slider.children);
     const slideCount = slides.length;
 
-    // Clone first slide to the end for seamless transition
     const firstClone = slides[0].cloneNode(true);
     slider.appendChild(firstClone);
 
@@ -155,19 +306,18 @@
       slider.style.transition = 'transform 1s ease-in-out';
       slider.style.transform = `translateX(-${index * slideWidth}px)`;
 
-      // Reset instantly without animation after last slide
       if (index === slideCount) {
         setTimeout(() => {
           slider.style.transition = 'none';
           slider.style.transform = 'translateX(0)';
           index = 0;
-        }, 1000); // match transition duration
+        }, 1000);
       }
     }
 
-    setInterval(nextSlide, 4000); // every 4 seconds
+    setInterval(nextSlide, 4000);
   </script>
-<script src="/js/navbar.js"></script>
+
+  <script src="/js/navbar.js"></script>
 </body>
 </html>
- -->
