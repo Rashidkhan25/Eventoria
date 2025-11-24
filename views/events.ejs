@@ -7,6 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/css/output.css">
   <link rel="stylesheet" href="/css/styles.css">
+  
 
   <style>
     /* Slider container */
@@ -81,12 +82,12 @@
     .movie-card-container {
       position: relative;
       display: flex;
-      overflow-x: auto;
       gap: 2rem;
       padding-top: 3rem;
       padding-left: 4rem;
       scrollbar-width: none;
       height: 300px;
+      overflow-y: hidden;  
     }
 
     .movie-card {
@@ -133,19 +134,8 @@
       transition: transform 0.4s ease;
     }
 
-    @font-face {
-      font-family: "general";
-      src: url("/fonts/GeneralSans-Medium.woff2") format("woff2");
-      font-weight: normal;
-      font-style: normal;
-    }
-
-    @font-face {
-      font-family: 'Circular Web';
-      src: url('/fonts/circularweb-book.woff2') format('woff2');
-      font-weight: 500;
-      font-style: normal;
-    }
+   
+    
   </style>
 
 </head>
@@ -164,7 +154,7 @@
             <source src="/videos/hero2.mp4" type="video/mp4">
           </video>
           <div class="slide-info">
-            <h2 class="font-general">Event 1</h2>
+            <h2 class="font-zentry">Event 1</h2>
             <p>Join us for an unforgettable journey filled with excitement, breathtaking moments, and a story that will keep you on the edge of your seat.
             </p>
           </div>
@@ -175,7 +165,7 @@
             <source src="/videos/hero.mp4" type="video/mp4">
           </video>
           <div class="slide-info">
-            <h2 class="font-general">Event 2</h2>
+            <h2 class="font-zentry">Event 2</h2>
             <p>Dive into a thrilling experience full of action, unexpected twists, and discoveries that will leave you amazed.</p>
           </div>
         </div>
@@ -185,7 +175,7 @@
             <source src="/videos/hero2.mp4" type="video/mp4">
           </video>
           <div class="slide-info">
-            <h2 class="font-general">Event 3</h2>
+            <h2 class="font-zentry">Event 3</h2>
             <p>Experience a touching tale that tugs at your heartstrings, complemented by breathtaking visuals and unforgettable moments.</p>
           </div>
         </div>
@@ -195,7 +185,7 @@
             <source src="/videos/hero3.mp4" type="video/mp4">
           </video>
           <div class="slide-info">
-            <h2 class="font-general">Event 4</h2>
+            <h2 class="font-zentry">Event 4</h2>
             <p>Step into a world of awe-inspiring storytelling and visuals, where every scene takes you on a journey beyond your imagination.</p>
           </div>
         </div>
@@ -214,31 +204,31 @@
         <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/contactUsbg.jpg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">Exciting adventure with thrilling moments and amazing story.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Trending Event 1</p>
+          <p class="text-center text-lg py-3 font-semibold mt-2">Trending Event 1</p>
         </div>
 
         <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/loading1.jpeg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">Action-packed journey through mysteries and discoveries.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Trending Event 2</p>
+          <p class="text-center text-lg py-3 font-semibold mt-2">Trending Event 2</p>
         </div>
 
         <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/loading2.jpeg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">Heartwarming story filled with emotion and stunning visuals.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Trending Event 3</p>
+          <p class="text-center text-lg py-3 font-semibold mt-2">Trending Event 3</p>
         </div>
 
         <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/loading3.jpeg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">A cinematic experience beyond imagination.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Trending Event 4</p>
+          <p class="text-center text-lg py-3 font-semibold mt-2">Trending Event 4</p>
         </div>
 
         <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/loading4.jpeg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">Don't miss this amazing experience.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Trending Event 5</p>
+          <p class="text-center text-lg py-3 font-semibold mt-2">Trending Event 5</p>
         </div>
       </div>
     </div>
@@ -250,37 +240,37 @@
         <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/loading1.jpeg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">Exciting adventure with thrilling moments and amazing story.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Top Pick 1</p>
+          <p class="text-center text-lg py-3 font-semibold mt-2">Top Pick 1</p>
         </div>
 
         <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/loading2.jpeg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">Action-packed journey through mysteries and discoveries.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Top Pick 2</p>
+          <p class="text-center text-lg py-3 font-semibold mt-2">Top Pick 2</p>
         </div>
 
         <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/loading3.jpeg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">Heartwarming story filled with emotion and stunning visuals.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Top Pick 3</p>
+          <p class="text-center text-lg py-3 font-semibold mt-2">Top Pick 3</p>
         </div>
 
          <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/loading2.jpeg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">Heartwarming story filled with emotion and stunning visuals.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Top Pick 3</p>
+          <p class="text-center text-lg py-3 font-semibold mt-2">Top Pick 3</p>
         </div>
 
          <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/loading4.jpeg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">Heartwarming story filled with emotion and stunning visuals.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Top Pick 3</p>
+          <p class="text-center text-lg py-3 font-semibold mt-2">Top Pick 3</p>
         </div>
 
         <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/loading1.jpeg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">A cinematic experience beyond imagination.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">Top Pick 4</p>
+          <p class="text-center text-lg py-3 font-semibold  mt-2">Top Pick 4</p>
         </div>
       </div>
     </div>
@@ -292,42 +282,42 @@
         <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/loading1.jpeg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">Exciting adventure with thrilling moments and amazing story.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">New Release 1</p>
+          <p class="text-center text-lg py-3 font-semibold mt-2">New Release 1</p>
         </div>
 
         <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/loading2.jpeg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">Action-packed journey through mysteries and discoveries.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">New Release 2</p>
+          <p class="text-center text-lg py-3 font-semibold mt-2">New Release 2</p>
         </div>
 
         <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/loading3.jpeg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">Heartwarming story filled with emotion and stunning visuals.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">New Release 3</p>
+          <p class="text-center text-lg py-3 font-semibold  mt-2">New Release 3</p>
         </div>
 
         <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/loading4.jpeg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">A cinematic experience beyond imagination.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">New Release 4</p>
+          <p class="text-center text-lg py-3 font-semibold  mt-2">New Release 4</p>
         </div>
 
         <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/loading1.jpeg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">A cinematic experience beyond imagination.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">New Release 4</p>
+          <p class="text-center text-lg py-3 font-semibold mt-2">New Release 4</p>
         </div>
 
         <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/loading2.jpeg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">A cinematic experience beyond imagination.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">New Release 4</p>
+          <p class="text-center text-lg py-3 font-semibold  mt-2">New Release 4</p>
         </div>
         <div class="movie-card rounded-xl overflow-hidden relative">
           <img src="images/loading3.jpeg" class="w-full h-40 object-cover rounded-xl">
           <div class="overlay">A cinematic experience beyond imagination.</div>
-          <p class="text-center text-lg py-3 font-semibold font-circular-web mt-2">New Release 4</p>
+          <p class="text-center text-lg py-3 font-semibold ` mt-2">New Release 4</p>
         </div>
       </div>
     </div>

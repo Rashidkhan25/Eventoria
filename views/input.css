@@ -36,6 +36,24 @@ body {
     font-family: "zentry";
     src: url("/fonts/zentry-regular.woff2") format("woff2");
   }
+  @font-face {
+    font-family: "stanley";
+    src: url("/fonts/Stanley.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "saonara";
+    src: url("/fonts/Saonara.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "saonara2";
+    src: url("/fonts/saonara2.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+  }
 }
 
 .special-font b {

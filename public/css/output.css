@@ -586,6 +586,36 @@ video {
   src: url("/fonts/zentry-regular.woff2") format("woff2");
 }
 
+@font-face {
+  font-family: "stanley";
+
+  src: url("/fonts/Stanley.otf") format("opentype");
+
+  font-weight: normal;
+
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "saonara";
+
+  src: url("/fonts/Saonara.otf") format("opentype");
+
+  font-weight: normal;
+
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "saonara2";
+
+  src: url("/fonts/saonara2.otf") format("opentype");
+
+  font-weight: normal;
+
+  font-style: normal;
+}
+
 .container{
   width: 100%;
 }
@@ -1285,6 +1315,10 @@ video {
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+.font-saonara{
+  font-family: saonara, sans-serif;
+}
+
 .font-zentry{
   font-family: zentry, sans-serif;
 }
@@ -1331,11 +1365,6 @@ video {
 .text-sm{
   font-size: 0.875rem;
   line-height: 1.25rem;
-}
-
-.text-xl{
-  font-size: 1.25rem;
-  line-height: 1.75rem;
 }
 
 .text-xs{

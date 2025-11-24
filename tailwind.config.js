@@ -9,6 +9,8 @@ module.exports = {
         "robert-medium": ["robert-medium", "sans-serif"],
         "robert-regular": ["robert-regular", "sans-serif"],
         "poppins": ["Poppins", "sans-serif"],
+        stanley: ["stanley", "sans-serif"],
+        saonara: ["saonara", "sans-serif"],
       },
     },
   },

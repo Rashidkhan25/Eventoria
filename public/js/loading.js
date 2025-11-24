@@ -45,7 +45,7 @@
           opacity: 1,
           scale: 1,
           duration: 0.5,
-          delay: index * 0.4,
+          delay: index * 0.5,
           onComplete: () => {
             if (index < images.length - 1)
               gsap.to(img, { opacity: 0, duration: 0.3 });
@@ -57,7 +57,7 @@
       gsap.to(loaderVideo, {
         opacity: 1,
         scale: 1,
-        delay: images.length * 0.4,
+        delay: images.length * 0.5,
         duration: 0.5,
         onComplete: () => loaderVideo.play(),
       });
