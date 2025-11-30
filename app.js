@@ -94,12 +94,6 @@ app.get("/event/:id", (req, res) => {
     session: req.session,
   });
 });
-app.get("/payment-success", (req, res) => {
-  const eventId = req.query.event;
-  const event = allEvents.find((ev) => ev.id === eventId);
-
-  res.render("payment-success", { event, session: req.session });
-});
 app.get("/ticket/:eventId", async (req, res) => {
   const event = allEvents.find((ev) => ev.id === req.params.eventId);
   if (!event) return res.status(404).send("Event not found");

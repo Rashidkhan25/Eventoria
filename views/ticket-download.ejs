@@ -2,14 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Download Ticket | Eventoria</title>
+  <title>Eventoria | Download Ticket</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .close-btn {
+        position: absolute; top: 1rem; right: 2rem;
+        font-size: 1.75rem; color: white;
+        background: transparent; border: none;
+        cursor: pointer; z-index: 20;
+      }
+  </style>
 </head>
 
 <body class="bg-black text-white min-h-screen flex flex-col items-center pt-24">
+
+  <button class="close-btn" onclick="window.location.href='/home'">&times;</button>
 
   <h1 class="text-4xl font-zentry mb-6">Your Event Ticket</h1>
 
