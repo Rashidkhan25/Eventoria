@@ -194,131 +194,57 @@
     </div>
   </header>
 
-  <!-- MOVIE ROWS -->
   <section class="mt-8 px-8 space-y-12">
 
-    <!-- TRENDING NOW -->
+    <!-- TRENDING -->
     <div>
-      <h2 class="text-3xl ml-[4rem] mb-2 font-bold font-circular-web">Trending Now</h2>
+      <h2 class="text-3xl ml-[4rem] font-bold font-circular-web">Trending Now</h2>
       <div class="movie-card-container">
-        <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/contactUsbg.jpg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">Exciting adventure with thrilling moments and amazing story.</div>
-          <p class="text-center text-lg py-3 font-semibold mt-2">Trending Event 1</p>
-        </div>
+        <% trending.forEach(ev => { %>
+          <div onclick="window.location.href='/event/<%= ev.id %>'"
+            class="movie-card rounded-xl overflow-hidden">
 
-        <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/loading1.jpeg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">Action-packed journey through mysteries and discoveries.</div>
-          <p class="text-center text-lg py-3 font-semibold mt-2">Trending Event 2</p>
-        </div>
+            <img src="<%= ev.banner %>" class="w-full h-40 object-cover rounded-xl">
 
-        <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/loading2.jpeg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">Heartwarming story filled with emotion and stunning visuals.</div>
-          <p class="text-center text-lg py-3 font-semibold mt-2">Trending Event 3</p>
-        </div>
+            <div class="overlay"><%= ev.description.substring(0, 80) %>...</div>
 
-        <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/loading3.jpeg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">A cinematic experience beyond imagination.</div>
-          <p class="text-center text-lg py-3 font-semibold mt-2">Trending Event 4</p>
-        </div>
-
-        <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/loading4.jpeg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">Don't miss this amazing experience.</div>
-          <p class="text-center text-lg py-3 font-semibold mt-2">Trending Event 5</p>
-        </div>
+            <p class="text-center text-lg font-semibold mt-2"><%= ev.title %></p>
+          </div>
+        <% }) %>
       </div>
     </div>
 
     <!-- TOP PICKS -->
     <div>
-      <h2 class="text-3xl ml-[4rem] mb-2 font-bold font-circular-web">Top Picks For You</h2>
+      <h2 class="text-3xl ml-[4rem] font-bold font-circular-web">Top Picks For You</h2>
       <div class="movie-card-container">
-        <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/loading1.jpeg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">Exciting adventure with thrilling moments and amazing story.</div>
-          <p class="text-center text-lg py-3 font-semibold mt-2">Top Pick 1</p>
-        </div>
+        <% topPicks.forEach(ev => { %>
+          <div onclick="window.location.href='/event/<%= ev.id %>'"
+               class="movie-card rounded-xl overflow-hidden">
 
-        <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/loading2.jpeg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">Action-packed journey through mysteries and discoveries.</div>
-          <p class="text-center text-lg py-3 font-semibold mt-2">Top Pick 2</p>
-        </div>
+            <img src="<%= ev.banner %>" class="w-full h-40 object-cover rounded-xl">
+            <div class="overlay"><%= ev.description.substring(0, 80) %>...</div>
+            <p class="text-center text-lg font-semibold mt-2"><%= ev.title %></p>
 
-        <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/loading3.jpeg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">Heartwarming story filled with emotion and stunning visuals.</div>
-          <p class="text-center text-lg py-3 font-semibold mt-2">Top Pick 3</p>
-        </div>
-
-         <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/loading2.jpeg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">Heartwarming story filled with emotion and stunning visuals.</div>
-          <p class="text-center text-lg py-3 font-semibold mt-2">Top Pick 3</p>
-        </div>
-
-         <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/loading4.jpeg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">Heartwarming story filled with emotion and stunning visuals.</div>
-          <p class="text-center text-lg py-3 font-semibold mt-2">Top Pick 3</p>
-        </div>
-
-        <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/loading1.jpeg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">A cinematic experience beyond imagination.</div>
-          <p class="text-center text-lg py-3 font-semibold  mt-2">Top Pick 4</p>
-        </div>
+          </div>
+        <% }) %>
       </div>
     </div>
 
     <!-- NEW RELEASES -->
     <div>
-      <h2 class="text-3xl ml-[4rem] mb-2 font-bold font-circular-web">New Releases</h2>
+      <h2 class="text-3xl ml-[4rem] font-bold font-circular-web">New Releases</h2>
       <div class="movie-card-container">
-        <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/loading1.jpeg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">Exciting adventure with thrilling moments and amazing story.</div>
-          <p class="text-center text-lg py-3 font-semibold mt-2">New Release 1</p>
-        </div>
+        <% newReleases.forEach(ev => { %>
+          <div onclick="window.location.href='/event/<%= ev.id %>'"
+               class="movie-card rounded-xl overflow-hidden">
 
-        <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/loading2.jpeg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">Action-packed journey through mysteries and discoveries.</div>
-          <p class="text-center text-lg py-3 font-semibold mt-2">New Release 2</p>
-        </div>
+            <img src="<%= ev.banner %>" class="w-full h-40 object-cover rounded-xl">
+            <div class="overlay"><%= ev.description.substring(0, 80) %>...</div>
+            <p class="text-center text-lg font-semibold mt-2"><%= ev.title %></p>
 
-        <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/loading3.jpeg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">Heartwarming story filled with emotion and stunning visuals.</div>
-          <p class="text-center text-lg py-3 font-semibold  mt-2">New Release 3</p>
-        </div>
-
-        <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/loading4.jpeg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">A cinematic experience beyond imagination.</div>
-          <p class="text-center text-lg py-3 font-semibold  mt-2">New Release 4</p>
-        </div>
-
-        <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/loading1.jpeg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">A cinematic experience beyond imagination.</div>
-          <p class="text-center text-lg py-3 font-semibold mt-2">New Release 4</p>
-        </div>
-
-        <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/loading2.jpeg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">A cinematic experience beyond imagination.</div>
-          <p class="text-center text-lg py-3 font-semibold  mt-2">New Release 4</p>
-        </div>
-        <div class="movie-card rounded-xl overflow-hidden relative">
-          <img src="images/loading3.jpeg" class="w-full h-40 object-cover rounded-xl">
-          <div class="overlay">A cinematic experience beyond imagination.</div>
-          <p class="text-center text-lg py-3 font-semibold ` mt-2">New Release 4</p>
-        </div>
+          </div>
+        <% }) %>
       </div>
     </div>
 
@@ -328,9 +254,7 @@
     <p>© 2025 Eventoria. All rights reserved.</p>
   </footer>
 
-  <!-- WORKING SLIDER + VIDEO HOVER SCRIPT -->
   <script>
-    /* ---- SLIDER ---- */
     const slider = document.getElementById("slider");
     const slides = Array.from(slider.children);
     const slideCount = slides.length;
@@ -366,7 +290,6 @@
 
     startSlider();
 
-    /* ---- VIDEO HOVER ---- */
     const videos = document.querySelectorAll(".slide video");
 
     videos.forEach(video => {

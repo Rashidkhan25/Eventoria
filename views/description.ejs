@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= event.title %> | Eventoria</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/output.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <style>
+      .fade-up {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      .backdrop-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), black 85%);
+      }
+    </style>
+  </head>
+
+  <body class="bg-black text-white overflow-x-hidden font-sans">
+    <%- include("partials/navbar", { session: session }) %>
+
+    <!-- HERO SECTION -->
+    <header class="relative h-[75vh] w-full pt-24">
+      <div class="absolute inset-0">
+        <img src="<%= event.banner %>" class="w-full h-full object-cover" />
+        <div class="backdrop-overlay"></div>
+      </div>
+
+      <div class="absolute bottom-20 left-14 fade-up z-20">
+        <h1 class="font-zentry text-6xl mb-3"><%= event.title %></h1>
+        <p class="text-xl text-gray-300 max-w-xl"><%= event.tagline %></p>
+
+        <button
+          onclick="payNow('<%= event.id %>', '<%= event.amount || 0 %>')"
+          class="mt-3 md:mt-5 flex gap-1 px-8 py-8 md:px-5 md:py-3 rounded-[4rem] bg-blue-600 text-white hover:bg-blue-700 transition"
+        >
+          <svg
+            stroke="currentColor"
+            fill="currentColor"
+            stroke-width="0"
+            version="1.2"
+            baseProfile="tiny"
+            viewBox="0 0 24 24"
+            height="18px"
+            width="18px"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10.368 19.102c.349 1.049 1.011 1.086 1.478.086l5.309-11.375c.467-1.002.034-1.434-.967-.967l-11.376 5.308c-1.001.467-.963 1.129.085 1.479l4.103 1.367 1.368 4.102z"
+            ></path>
+          </svg>
+
+          <span
+            class="relative inline-flex overflow-hidden font-general text-sm uppercase group"
+          >
+            <span
+              class="translate-y-0 skew-y-0 transition duration-500 group-hover:-translate-y-[160%] group-hover:skew-y-12"
+            >
+              Book Passes — ₹<%= event.amount || 0 %>
+            </span>
+            <span
+              class="absolute translate-y-[164%] skew-y-12 transition duration-500 group-hover:translate-y-0 group-hover:skew-y-0"
+            >
+              Book Passes — ₹<%= event.amount || 0 %>
+            </span>
+          </span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <section class="px-16 py-12 space-y-12">
+      <!-- ARTISTS -->
+      <div class="fade-up">
+        <h2 class="text-3xl font-semibold font-circular-web mb-4">
+          Featuring Artists
+        </h2>
+        <div class="flex gap-5">
+          <% event.artists.forEach(artist => { %>
+          <div
+            class="bg-blue-900/40 border border-blue-600 px-5 py-3 rounded-xl"
+          >
+            <p class="text-lg font-semibold"><%= artist %></p>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="fade-up">
+        <h2 class="text-3xl font-semibold font-circular-web mb-4">
+          About The Event
+        </h2>
+        <p
+          class="text-gray-300 leading-relaxed max-w-4xl text-lg tracking-wide"
+        >
+          <%= event.description %>
+        </p>
+      </div>
+
+      <!-- PDF BROCHURE -->
+      <% if (event.pdf) { %>
+      <div class="fade-up">
+        <h2 class="text-3xl font-semibold font-circular-web mb-4">Brochure</h2>
+        <a
+          href="<%= event.pdf %>"
+          target="_blank"
+          class="px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition"
+        >
+          View Event Brochure (PDF)
+        </a>
+      </div>
+      <% } %>
+    </section>
+
+    <footer class="text-center py-6 text-gray-400">
+      © 2025 Eventoria — All rights reserved.
+    </footer>
+
+    <script>
+      gsap.utils.toArray(".fade-up").forEach((el, i) => {
+        gsap.to(el, {
+          opacity: 1,
+          y: 0,
+          delay: 0.2 + i * 0.15,
+          duration: 1.1,
+          ease: "power3.out",
+        });
+      });
+    </script>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script>
+      async function payNow(eventId, amount) {
+        const response = await fetch("/create-order", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ amount, eventId }),
+        });
+
+        if (response.status === 401) {
+          return (window.location.href = "/userlogin");
+        }
+
+        const order = await response.json();
+
+        if (!order.id) {
+          alert("Order creation failed.");
+          return;
+        }
+
+        const options = {
+          key: "<%= process.env.RAZORPAY_KEY_ID %>",
+          amount: order.amount,
+          currency: order.currency,
+          name: "Eventoria",
+          description: "Event Ticket Purchase",
+          order_id: order.id,
+
+          handler: function () {
+            window.location.href = `/ticket/${eventId}`;
+          },
+
+          theme: { color: "#1e40af" },
+        };
+
+        new Razorpay(options).open();
+      }
+    </script>
+  </body>
+</html>
