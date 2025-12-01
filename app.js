@@ -115,65 +115,127 @@ app.get("/ticket/:eventId", async (req, res) => {
     qrCode,
   });
 });
+
 app.get("/download-pdf/:ticketId", async (req, res) => {
-  if (!req.session.loggedIn) return res.redirect("/userlogin");
+  try {
+    if (!req.session.loggedIn) return res.redirect("/userlogin");
 
-  const ticketId = req.params.ticketId;
-  const user = {
-    username: req.session.username,
-    email: req.session.userEmail,
-  };
+    const ticketId = req.params.ticketId;
+    const user = {
+      username: req.session.username,
+      email: req.session.userEmail,
+    };
 
-  // Generate QR
-  const qrData = `EVENTORIA_TICKET_${ticketId}_${user.email}`;
-  const qrImage = await QRCode.toDataURL(qrData);
+    const event = allEvents.find(ev => ev.id === req.query.eventId);
+    if (!event) return res.status(404).send("Event not found");
 
-  // Create PDF
-  const doc = new PDFDocument({
-    margin: 40,
-    size: "A4",
-  });
+    const banner = event.banner || null;
 
-  res.setHeader("Content-Type", "application/pdf");
-  res.setHeader(
-    "Content-Disposition",
-    `attachment; filename=ticket-${ticketId}.pdf`
-  );
-  doc.pipe(res);
+    const qrData = `EVENTORIA_TICKET_${ticketId}_${user.email}`;
+    const qrImage = await QRCode.toDataURL(qrData);
 
-  // Title
-  doc
-    .fontSize(28)
-    .fillColor("#0035ff")
-    .text("EVENTORIA PASS", { align: "center" })
-    .moveDown(1);
+    const doc = new PDFDocument({ margin: 40, size: "A4" });
 
-  // User info
-  doc.fillColor("black").fontSize(16);
-  doc.text(`Name: ${user.username}`);
-  doc.text(`Email: ${user.email}`);
-  doc.text(`Ticket ID: ${ticketId}`);
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename=ticket-${ticketId}.pdf`
+    );
 
-  doc.moveDown(1);
+    doc.pipe(res);
 
-  // Event info
-  doc
-    .fontSize(18)
-    .fillColor("black")
-    .text("Event Details", { underline: true });
-  doc.moveDown(0.5);
-  doc.fontSize(16);
-  doc.text(`Event: ${req.query.title || "Event"}`);
-  doc.text(`Tagline: ${req.query.tagline || ""}`);
+    let y = 40;
+    /* ---------------- TITLE + TAGLINE ---------------- */
+    doc.font("Helvetica-Bold").fontSize(30).text(event.title, { align: "center" });
+    y += 40;
 
-  doc.moveDown(1);
+    doc.font("Helvetica").fontSize(16).fillColor("gray")
+      .text(event.tagline || "", { align: "center" });
 
-  // QR Code Image
-  const qrBuffer = Buffer.from(qrImage.split(",")[1], "base64");
-  doc.image(qrBuffer, { width: 180, align: "center" });
+    y += 40;
+    doc.fillColor("black");
 
-  doc.end();
+
+    /* ---------------- BANNER ---------------- */
+    if (banner) {
+      try {
+        const bannerPath = path.join(__dirname, "public", banner);
+        const bw = 480;
+        const bh = 250;
+        const bx = (doc.page.width - bw) / 2;
+
+        doc.save();
+        doc.roundedRect(bx, y, bw, bh, 15).clip();
+        doc.image(bannerPath, bx, y, { width: bw, height: bh });
+        doc.restore();
+
+        y += bh + 25;
+      } catch (err) {
+        console.error("Banner error:", err);
+      }
+    }
+
+    
+    /* ---------------- BLACK BAR WITH TITLES ---------------- */
+    const barX = 40;
+    const barW = doc.page.width - 80;
+    const barH = 40;
+
+    doc.rect(barX, y, barW, barH).fill("#000000");
+
+    // Left title
+    doc.fillColor("white")
+      .font("Helvetica-Bold")
+      .fontSize(14)
+      .text("Holder Details", barX + 20, y + 12);
+
+    // Right title
+    doc.text("QR", barX + barW - 80, y + 12);
+
+    // Move below bar
+    y += barH + 20;
+
+    /* ---------------- CONTENT BELOW THE BAR ---------------- */
+    // Left side details
+    const leftX = 60;
+
+    doc.fillColor("black")
+      .font("Helvetica")
+      .fontSize(12)
+      .text(`Name: ${user.username}`, leftX, y)
+      .text(`Email: ${user.email}`, leftX, y + 20)
+      .text(`Ticket ID: ${ticketId}`, leftX, y + 40)
+      .text(`Amount: ₹${event.amount}`, leftX, y + 60);
+
+    /* ---------------- QR CODE (Right Side) ---------------- */
+    const qrBuffer = Buffer.from(qrImage.split(",")[1], "base64");
+    const qrSize = 130;
+
+    const qrX = doc.page.width - qrSize - 60;
+    const qrY = y;
+
+    doc.image(qrBuffer, qrX, qrY, { width: qrSize, height: qrSize });
+
+  /* ---------------- FOOTER BELOW QR ---------------- */
+    const footerY = qrY + qrSize + 50; // more spacing so no overlap
+
+    doc.fontSize(10)
+       .fillColor("gray")
+       .text(
+         "Show this QR code at the event entrance. Non-transferable.",
+         40,
+         footerY,
+         { align: "center" }
+       );
+
+    doc.end();
+
+  } catch (err) {
+    console.error("PDF Error:", err);
+    if (!res.headersSent) res.status(500).send("Failed to generate PDF");
+  }
 });
+
 
 app.get("/usersignup", (req, res) => res.render("signupPage"));
 app.get("/userlogin", (req, res) => res.render("loginPage"));

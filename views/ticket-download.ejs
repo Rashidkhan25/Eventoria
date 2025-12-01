@@ -2,48 +2,102 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Eventoria | Download Ticket</title>
+  <title>Eventoria | Your Ticket</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/css/styles.css">
   <style>
     .close-btn {
-        position: absolute; top: 1rem; right: 2rem;
-        font-size: 1.75rem; color: white;
-        background: transparent; border: none;
-        cursor: pointer; z-index: 20;
-      }
+      position: absolute;
+      top: 1rem;
+      right: 2rem;
+      font-size: 2rem;
+      color: #333;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 20;
+      transition: transform 0.2s;
+    }
+    .close-btn:hover { transform: scale(1.2); }
+
+    /* Ticket card */
+    .ticket-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+
+    /* Button */
+    .btn-shine {
+      background: #1d4ed8; /* blue-700 */
+      color: white;
+      height:2.5rem;
+      width: 12rem;
+      font-weight: 600;
+      border-radius: 9999px;
+      padding: 0.5rem 1.25rem;
+      text-align: center;
+      display: inline-block;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .btn-shine:hover {
+      background: #2563eb; /* blue-600 */
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+
+    /* Overlay text on banner */
+    .banner-overlay {
+      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+      padding: 0.5rem;
+    }
   </style>
 </head>
 
-<body class="bg-black text-white min-h-screen flex flex-col items-center pt-24">
+<body class="bg-white min-h-screen flex flex-col items-center pt-[13rem] font-sans text-gray-900">
 
   <button class="close-btn" onclick="window.location.href='/home'">&times;</button>
 
-  <h1 class="text-4xl font-zentry mb-6">Your Event Ticket</h1>
+  <h1 class="text-3xl font-extrabold mb-4 tracking-wide text-gray-800">Your Event Ticket</h1>
 
-  <!-- Ticket Preview -->
-  <div class="bg-white text-black rounded-xl p-6 shadow-2xl w-[350px]">
+  <!-- Ticket Card -->
+  <div class="ticket-card w-[340px] shadow-md">
 
-    <h2 class="text-2xl font-bold mb-2"><%= event.title %></h2>
-    <p class="text-gray-700 mb-3"><%= event.tagline %></p>
+    <!-- Event Banner with Overlay Text -->
+    <% if(event.banner) { %>
+      <div class="relative w-full">
+        <img src="<%= event.banner %>" alt="Event Banner" class="w-full h-32 object-cover"/>
+        <div class="absolute inset-0 flex flex-col justify-end banner-overlay text-white">
+          <h2 class="text-lg font-bold"><%= event.title %></h2>
+          <p class="text-xs line-clamp-2"><%= event.tagline %></p>
+        </div>
+      </div>
+    <% } %>
 
-    <img src="<%= qrCode %>" class="w-40 mx-auto my-4" />
+    <!-- QR Code -->
+    <div class="flex justify-center my-2 p-1 ">
+      <img src="<%= qrCode %>" class="w-[7rem] h-[7rem] rounded-lg"/>
+    </div>
 
-    <p><strong>Name:</strong> <%= user.username %></p>
-    <p><strong>Email:</strong> <%= user.email %></p>
-    <p><strong>Ticket ID:</strong> <%= ticketId %></p>
+    <!-- User Info -->
+    <div class="mt-2 space-y-1 text-gray-800 text-[0.8rem] p-3">
+      <p><span class="font-semibold">Name:</span> <%= user.username %></p>
+      <p><span class="font-semibold">Email:</span> <%= user.email %></p>
+      <p><span class="font-semibold">Ticket ID:</span> <%= ticketId %></p>
+    </div>
 
-    <p class="mt-4 text-sm text-gray-700">
-      Show this QR code at the event entrance for verification.
+    <p class="mb-3 text-[11px] text-gray-500 text-center">
+      Show this QR code at the event entrance. Non-transferable.
     </p>
   </div>
 
-  <a href="/download-pdf/<%= ticketId %>" 
-     class="mt-8 px-6 py-3 bg-blue-600 rounded-full font-semibold hover:bg-blue-500">
-    Download Ticket PDF
-  </a>
+  <!-- Download Button -->
+  <a href="/download-pdf/<%= ticketId %>?eventId=<%= event.id %>" class="mt-6 btn-shine pt-[0.8rem] text-xs">
+  Download Ticket PDF
+</a>
+
 
 </body>
 </html>
