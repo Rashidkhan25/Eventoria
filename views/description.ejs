@@ -5,7 +5,6 @@
     <title>Eventoria | <%= event.title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/output.css" />
     <link rel="stylesheet" href="/css/styles.css" />
 
@@ -165,6 +164,13 @@
           name: "Eventoria",
           description: "Event Ticket Purchase",
           order_id: order.id,
+
+          method: {
+            upi: true,
+            wallet: true,
+            card: true,
+            netbanking: true,
+          },
 
           handler: function () {
             window.location.href = `/ticket/${eventId}`;

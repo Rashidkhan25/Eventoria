@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Eventoria | Communities</title>
+  <link rel="stylesheet" href="/css/output.css" />
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white font-sans min-h-screen">
+
+  <%- include("partials/navbar", { session }) %>
+
+  <!-- Page Container -->
+  <section class="px-10 md:px-20 lg:px-32 py-24">  
+    <div class="mb-14 mt-10">
+      <h1 class="text-5xl font-zentry">Event Communities</h1>
+      <p class="text-gray-400 mt-3 text-lg">
+        Join discussions, share moments, and stay updated with your favorite events.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+
+      <% allEvents.forEach(event => { %>
+        <div
+          class="group bg-gradient-to-br from-blue-900/10 to-blue-700/10 backdrop-blur-xl 
+                 border border-blue-700/40 rounded-2xl overflow-hidden
+                 hover:scale-[1.04] hover:border-blue-500 transition-all duration-300">
+
+          <div class="relative">
+            <img src="<%= event.banner %>"
+                 class="w-full h-44 object-cover rounded-t-2xl opacity-90 group-hover:opacity-100 transition" />
+          </div>
+          <div class="p-6">
+
+            <h2 class="text-2xl font-semibold"><%= event.title %></h2>
+            <p class="text-gray-400 mt-1 mb-4 leading-relaxed"><%= event.tagline %></p>
+
+            <button
+              onclick="window.location.href='/community/<%= event.id %>'"
+              class="px-5 py-2 bg-blue-600 rounded-full hover:bg-blue-700 
+                     transition w-full mt-2 shadow-lg shadow-blue-800/30">
+              View Community
+            </button>
+
+          </div>
+        </div>
+      <% }) %>
+
+    </div>
+  </section>
+  <script src="/js/navbar.js"></script>
+</body>
+</html>

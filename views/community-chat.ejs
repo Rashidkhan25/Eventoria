@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Eventoria | <%= event.title %> Community</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/css/output.css">
+    <script src="/socket.io/socket.io.js"></script>
+
+    <style>
+      .scroll-hidden::-webkit-scrollbar {
+        width: 0;
+      }
+
+      .typing-dot {
+        width: 6px;
+        height: 6px;
+        background: #fff;
+        border-radius: 50%;
+        animation: bounce 0.6s infinite alternate;
+      }
+      .typing-dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .typing-dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes bounce {
+        from {
+          transform: translateY(0);
+          opacity: 0.5;
+        }
+        to {
+          transform: translateY(-6px);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="bg-black text-white">
+    <!-- TOP BAR-->
+    <div
+      class="w-full fixed top-0 left-0 bg-[#0f0f0f] border-b border-gray-800 p-4 flex items-center gap-3 z-50"
+    >
+      <button
+        onclick="window.location.href='/community'"
+        class="p-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition"
+      >
+        ←
+      </button>
+
+      <h2 class="text-2xl"><%= event.title %> - Community</h2>
+    </div>
+
+    <div class="flex h-screen pt-20">
+      <!-- SIDEBAR -->
+      <div
+        class="w-[25%] bg-[#0f0f0f] border-r border-gray-800 p-5 flex flex-col"
+      >
+        <h3 class="font-semibold text-lg mb-3">Members</h3>
+        <ul id="members-list" class="space-y-2 text-gray-300"></ul>
+
+        <div class="border-b border-gray-700 my-4"></div>
+
+        <h3 class="font-semibold text-lg mb-3">Online Now</h3>
+        <ul id="online-users" class="space-y-2"></ul>
+      </div>
+
+      <!-- CHAT PANEL -->
+      <div class="flex-1 flex flex-col">
+        <div
+          id="chat-box"
+          class="flex-1 p-5 overflow-y-scroll scroll-hidden space-y-4"
+        ></div>
+
+        <div id="typing" class="px-6 pb-2 hidden">
+          <div class="flex items-center gap-2 text-gray-400 text-sm">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+          </div>
+        </div>
+
+        <div class="p-6 bg-[#0f0f0f] flex gap-3">
+          <input
+            id="msgInput"
+            class="flex-1 p-3 bg-gray-900 text-white rounded-xl outline-none"
+            placeholder="Message the community..."
+          />
+          <button
+            onclick="sendMessage()"
+            class="px-6 py-3 bg-blue-600 rounded-xl hover:bg-blue-700 transition"
+          >
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="/js/navbar.js"></script>
+    <script>
+      const socket = io();
+      const eventId = "<%= event.id %>";
+      const username = "<%= session.username %>";
+      const loggedIn = "<%= session.loggedIn %>";
+
+      if (!loggedIn || loggedIn === "false") {
+        window.location.href = "/userlogin";
+      }
+
+      socket.emit("joinRoom", eventId);
+
+      socket.emit("userJoinedCommunity", { eventId, username });
+
+      socket.on("updateMembers", (members) => {
+        const list = document.getElementById("members-list");
+        list.innerHTML = "";
+        members.forEach((m) => {
+          list.innerHTML += `<li>${m}</li>`;
+        });
+      });
+
+      socket.on("updateOnlineUsers", (users) => {
+        const list = document.getElementById("online-users");
+        list.innerHTML = "";
+        users.forEach((u) => {
+          list.innerHTML += `
+        <li class="flex items-center gap-2">
+          <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+          ${u}
+        </li>`;
+        });
+      });
+
+      socket.on("receiveMessage", (msg) => {
+        if (msg.user !== username) {
+          addMessage(msg, false);
+        }
+      });
+
+      socket.on("loadOldMessages", (messages) => {
+        console.log("Loaded messages:", messages);
+
+        messages.forEach((msg) => {
+          addMessage(msg, msg.user === username);
+        });
+      });
+
+      function sendMessage() {
+        const input = document.getElementById("msgInput");
+        const text = input.value.trim();
+        if (!text) return;
+
+        const msg = {
+          eventId,
+          user: username,
+          text,
+          time: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+        };
+
+        addMessage(msg, true);
+        socket.emit("sendMessage", msg);
+
+        input.value = "";
+      }
+
+      function addMessage(msg, isMine) {
+        const box = document.getElementById("chat-box");
+        const bubble = document.createElement("div");
+
+        bubble.className = `max-w-[60%] p-3 rounded-xl transition ${
+          isMine ? "ml-auto bg-blue-600" : "mr-auto bg-gray-800"
+        }`;
+
+        bubble.innerHTML = `
+      <p class="text-sm font-semibold">${msg.user}</p>
+      <p>${msg.text}</p>
+      <p class="text-xs text-gray-300 text-right">${msg.time}</p>
+    `;
+
+        box.appendChild(bubble);
+        box.scrollTop = box.scrollHeight;
+      }
+
+      const input = document.getElementById("msgInput");
+      input.addEventListener("input", () => {
+        socket.emit("typing", { eventId, username });
+      });
+
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          sendMessage();
+        }
+      });
+
+      socket.on("showTyping", (typingUser) => {
+        if (typingUser === username) return;
+        const typing = document.getElementById("typing");
+        typing.classList.remove("hidden");
+
+        setTimeout(() => typing.classList.add("hidden"), 1200);
+      });
+    </script>
+  </body>
+</html>
