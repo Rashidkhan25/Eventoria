@@ -215,7 +215,6 @@ app.get("/download-pdf/:ticketId", async (req, res) => {
     doc.pipe(res);
 
     let y = 40;
-    /* ---------------- TITLE + TAGLINE ---------------- */
     doc.font("Helvetica-Bold").fontSize(30).text(event.title, { align: "center" });
     y += 40;
 
@@ -225,8 +224,6 @@ app.get("/download-pdf/:ticketId", async (req, res) => {
     y += 40;
     doc.fillColor("black");
 
-
-    /* ---------------- BANNER ---------------- */
     if (banner) {
       try {
         const bannerPath = path.join(__dirname, "public", banner);
@@ -245,28 +242,21 @@ app.get("/download-pdf/:ticketId", async (req, res) => {
       }
     }
 
-    
-    /* ---------------- BLACK BAR WITH TITLES ---------------- */
     const barX = 40;
     const barW = doc.page.width - 80;
     const barH = 40;
 
     doc.rect(barX, y, barW, barH).fill("#000000");
 
-    // Left title
     doc.fillColor("white")
       .font("Helvetica-Bold")
       .fontSize(14)
       .text("Holder Details", barX + 20, y + 12);
 
-    // Right title
     doc.text("QR", barX + barW - 80, y + 12);
 
-    // Move below bar
     y += barH + 20;
 
-    /* ---------------- CONTENT BELOW THE BAR ---------------- */
-    // Left side details
     const leftX = 60;
 
     doc.fillColor("black")
@@ -277,7 +267,6 @@ app.get("/download-pdf/:ticketId", async (req, res) => {
       .text(`Ticket ID: ${ticketId}`, leftX, y + 40)
       .text(`Amount: ₹${event.amount}`, leftX, y + 60);
 
-    /* ---------------- QR CODE (Right Side) ---------------- */
     const qrBuffer = Buffer.from(qrImage.split(",")[1], "base64");
     const qrSize = 130;
 
@@ -286,8 +275,7 @@ app.get("/download-pdf/:ticketId", async (req, res) => {
 
     doc.image(qrBuffer, qrX, qrY, { width: qrSize, height: qrSize });
 
-  /* ---------------- FOOTER BELOW QR ---------------- */
-    const footerY = qrY + qrSize + 50; // more spacing so no overlap
+    const footerY = qrY + qrSize + 50; 
 
     doc.fontSize(10)
        .fillColor("gray")
@@ -306,6 +294,17 @@ app.get("/download-pdf/:ticketId", async (req, res) => {
   }
 });
 
+// Community Routes
+app.get("/community", (req, res) => {
+  res.render("community", { allEvents, session: req.session });
+});
+
+app.get("/community/:eventId", (req, res) => {
+  const event = allEvents.find(e => e.id === req.params.eventId);
+  if (!event) return res.status(404).send("Event not found");
+
+  res.render("community-chat", { event, messages: [], session: req.session });
+});
 
 app.get("/usersignup", (req, res) => res.render("signupPage"));
 app.get("/userlogin", (req, res) => res.render("loginPage"));
