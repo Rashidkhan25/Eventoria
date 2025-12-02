@@ -74,33 +74,33 @@ To run this project locally:
 ## 📦 Folder Structure
 
 ```
-Eventoria/
-├── data/
-├── models/
-├── public/
-│   ├── audio/
-│   ├── css/
-│   ├── fonts/
-│   ├── images/
-│   ├── js/
-│   └── videos/
-├── views/
-│   ├── partials/
-│   ├── community-chat.ejs
-│   ├── community.ejs
-│   ├── contact-us.ejs
-│   ├── description.ejs
-│   ├── events.ejs
-│   ├── hostloginPage.ejs
-│   ├── index.ejs
-│   ├── input.css
-│   ├── loading.ejs
-│   ├── loginPage.ejs
-│   ├── signupPage.ejs
-│   └── ticket-download.ejs
-├── app.js
-├── package.json
-└── .env
+   Eventoria/
+   ├── data/
+   ├── models/
+   ├── public/
+   │   ├── audio/
+   │   ├── css/
+   │   ├── fonts/
+   │   ├── images/
+   │   ├── js/
+   │   └── videos/
+   ├── views/
+   │   ├── partials/
+   │   ├── community-chat.ejs
+   │   ├── community.ejs
+   │   ├── contact-us.ejs
+   │   ├── description.ejs
+   │   ├── events.ejs
+   │   ├── hostloginPage.ejs
+   │   ├── index.ejs
+   │   ├── input.css
+   │   ├── loading.ejs
+   │   ├── loginPage.ejs
+   │   ├── signupPage.ejs
+   │   └── ticket-download.ejs
+   ├── app.js
+   ├── package.json
+   └── .env
 
 ```
 
